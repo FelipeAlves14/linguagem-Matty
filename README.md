@@ -7,6 +7,7 @@
 ---
 
 ## Reconhecimento
+
 - [Texto Síntese](#texto-síntese)
 - [Tabela de Similares](#tabela-de-similares)
 - [Lista de Demandas](#lista-de-demandas)
@@ -42,10 +43,19 @@ Olhando para como são feitas operações matemáticas, das mais simples até as
 
 ## Definição
 
-- [Tabela de tipos](#tabela-de-tipos)
-- [Tabela de operadores](#tabela-de-operadores)
-- [Tabela de estruturas da linguagem](#tabela-de-estruturas-da-linguagem)
-- [Tabela de palavras-reservadas](#tabela-de-palavras-reservadas)
+- [Matty](#matty)
+  - [Reconhecimento](#reconhecimento)
+    - [Texto síntese](#texto-síntese)
+    - [Tabela de Similares](#tabela-de-similares)
+    - [Lista de Demandas](#lista-de-demandas)
+    - [Tabela de Ferramentas](#tabela-de-ferramentas)
+  - [Definição](#definição)
+    - [Tabela de tipos](#tabela-de-tipos)
+    - [Tabela de operadores](#tabela-de-operadores)
+    - [Tabela de estruturas da linguagem](#tabela-de-estruturas-da-linguagem)
+    - [Tabela de palavras-reservadas](#tabela-de-palavras-reservadas)
+  - [Estruturação](#estruturação)
+    - [Documento de ambiente de trabalho](#documento-de-ambiente-de-trabalho)
 
 ### Tabela de tipos
 
@@ -92,7 +102,7 @@ Olhando para como são feitas operações matemáticas, das mais simples até as
 | Declaração de equação | Declara uma equação que retorna um resultado numérico dada uma expressão completa com uma incógnita "x" | `a = ´2x = 9´;` |
 | Condicional | Declaração de condição para executar blocos de código dado um booleano | `if(x == y){...}else{...}` |
 | Definição de uma "regra de três" | Declara uma operação de regra de três dado 3 valores e uma incógnita "x" | a = (3 &#124; 100 - x &#124; 300); |
-| Definição de uma raíz | Declara uma operação de raíz dado um índice (caso não exista índice, utiliza-se 2) e um radicando | `a = 3\/8;` |
+| Definição de uma raíz | Declara uma operação de raíz dado um índice (caso não exista índice, utiliza-se 2) e um radicando | `a = \/8;` |
 | Definição de um logaritmo | Declara uma operação de logaritmo dado um logaritmando e uma base (caso não exista base, utiliza-se 10) | `a = log8_2;` |
 | Operação com fração | Realiza uma operação qualquer com números fracionários | `a = 2///3 + 4///6;` |
 | Entrada de dados | Abre a entrada de dados pelo usuário | `a = read;` |
