@@ -36,6 +36,8 @@ private:
     Value *dScanf;
     Value *fPrint;
     Value *fScanf;
+    FunctionCallee Input;
+    FunctionCallee Print;
     Value *sPrint;
     Value *sScanf;
 
@@ -65,11 +67,11 @@ public:
         cScanf = Builder->CreateGlobalStringPtr("%c", "cScanf");
         sScanf = Builder->CreateGlobalStringPtr("%s", "sScanf");
 
-        FunctionCallee Print = Executable->getOrInsertFunction("printf",
-                                                               FunctionType::get(IntegerType::getInt32Ty(*Context), {PointerType::get(Type::getInt8Ty(*Context), 0)}, true));
+        Print = Executable->getOrInsertFunction("printf",
+                                                FunctionType::get(IntegerType::getInt32Ty(*Context), {PointerType::get(Type::getInt8Ty(*Context), 0)}, true));
 
-        FunctionCallee Input = Executable->getOrInsertFunction("scanf",
-                                                               FunctionType::get(IntegerType::getInt32Ty(*Context), {PointerType::get(Type::getInt8Ty(*Context), 0)}, true));
+        Input = Executable->getOrInsertFunction("scanf",
+                                                FunctionType::get(IntegerType::getInt32Ty(*Context), {PointerType::get(Type::getInt8Ty(*Context), 0)}, true));
 
         visitPrograma(tree);
 
@@ -96,6 +98,8 @@ public:
     {
         for (MattyParser::SeqComandoContext *comando : ctx->seqComando())
             visitSeqComando(comando);
+
+        return {};
     }
 
     virtual std::any visitSeqComando(MattyParser::SeqComandoContext *ctx) override
@@ -116,6 +120,8 @@ public:
             return visitBloco(bloco);
         else
             throw runtime_error("Comando desconhecido");
+
+        return {};
     }
 
     virtual std::any visitAtribuicao(MattyParser::AtribuicaoContext *ctx) override
@@ -139,7 +145,10 @@ public:
                 Builder->CreateStore(val, symbolTable[funcName][var]);
             }
         }
+
+        return {};
     }
+
     virtual std::any visitEscolha(MattyParser::EscolhaContext *ctx) override
     {
         Value *cond = std::any_cast<Value *>(visit(ctx->expressao(0)));
@@ -176,7 +185,10 @@ public:
         Builder->CreateBr(endBlock);
 
         Builder->SetInsertPoint(endBlock);
+
+        return {};
     }
+
     virtual std::any visitSe(MattyParser::SeContext *ctx) override
     {
         Value *cond = std::any_cast<Value *>(visit(ctx->booleano(0)));
@@ -207,9 +219,131 @@ public:
 
         Builder->CreateBr(endBlock);
         Builder->SetInsertPoint(endBlock);
-    };
-    virtual std::any visitExiba(MattyParser::ExibaContext *ctx) override;
-    virtual std::any visitRepita(MattyParser::RepitaContext *ctx) override;
-    virtual std::any visitLoop(MattyParser::LoopContext *ctx) override;
-    virtual std::any visitBloco(MattyParser::BlocoContext *ctx) override;
+
+        return {};
+    }
+
+    virtual std::any visitExiba(MattyParser::ExibaContext *ctx) override
+    {
+        for (MattyParser::ValorContext *valCtx : ctx->valor())
+        {
+            Value *val = std::any_cast<Value *>(visit(valCtx));
+            if (val->getType()->isIntegerTy())
+                Builder->CreateCall(Print, {val});
+            else if (val->getType()->isFloatingPointTy())
+                Builder->CreateCall(Print, {val});
+            else if (val->getType()->isPointerTy())
+                Builder->CreateCall(Print, {val});
+            else
+                throw runtime_error("Tipo de dado não suportado para exibição");
+        }
+
+        return {};
+    }
+
+    virtual std::any visitRepita(MattyParser::RepitaContext *ctx) override
+    {
+        Value *timesVal = std::any_cast<Value *>(visit(ctx->expressao()));
+
+        Value *timesI32 = nullptr;
+        if (timesVal->getType()->isIntegerTy())
+            timesI32 = Builder->CreateIntCast(timesVal, Type::getInt32Ty(*Context), true);
+        else if (timesVal->getType()->isFloatingPointTy())
+            timesI32 = Builder->CreateFPToSI(timesVal, Type::getInt32Ty(*Context));
+        else
+            throw runtime_error("Tipo inválido para 'repita' (esperado inteiro)");
+
+        Function *func = Builder->GetInsertBlock()->getParent();
+
+        BasicBlock *condBr = BasicBlock::Create(*Context, "repita.cond", func);
+        BasicBlock *bodyBr = BasicBlock::Create(*Context, "repita.body", func);
+        BasicBlock *endBr = BasicBlock::Create(*Context, "repita.end", func);
+
+        AllocaInst *counter = Builder->CreateAlloca(Type::getInt32Ty(*Context), nullptr, "rep_i");
+        Builder->CreateStore(ConstantInt::get(Type::getInt32Ty(*Context), 0), counter);
+        Builder->CreateBr(condBr);
+
+        Builder->SetInsertPoint(condBr);
+        Value *cur = Builder->CreateLoad(Type::getInt32Ty(*Context), counter);
+        Value *cmp = Builder->CreateICmpSLT(cur, timesI32);
+        Builder->CreateCondBr(cmp, bodyBr, endBr);
+
+        Builder->SetInsertPoint(bodyBr);
+        visit(ctx->comando());
+        Value *next = Builder->CreateAdd(cur, ConstantInt::get(Type::getInt32Ty(*Context), 1));
+        Builder->CreateStore(next, counter);
+        Builder->CreateBr(condBr);
+
+        Builder->SetInsertPoint(endBr);
+
+        return {};
+    }
+
+    virtual std::any visitLoop(MattyParser::LoopContext *ctx) override
+    {
+        Function *func = Builder->GetInsertBlock()->getParent();
+
+        BasicBlock *condBr = BasicBlock::Create(*Context, "loop.cond", func);
+        BasicBlock *bodyBr = BasicBlock::Create(*Context, "loop.body", func);
+        BasicBlock *endBr = BasicBlock::Create(*Context, "loop.end", func);
+
+        Builder->CreateBr(condBr);
+
+        Builder->SetInsertPoint(condBr);
+        Value *cond = std::any_cast<Value *>(visit(ctx->booleano()));
+        Builder->CreateCondBr(cond, bodyBr, endBr);
+
+        Builder->SetInsertPoint(bodyBr);
+        visit(ctx->comando());
+        Builder->CreateBr(condBr);
+
+        Builder->SetInsertPoint(endBr);
+
+        return {};
+    }
+
+    virtual std::any visitBloco(MattyParser::BlocoContext *ctx) override
+    {
+        visitSeqComando(ctx->seqComando());
+        return {};
+    }
+
+    virtual std::any visitValor(MattyParser::ValorContext *ctx) override
+    {
+        if (ctx->expressao())
+            return visit(ctx->expressao());
+        else if (ctx->booleano())
+            return visit(ctx->booleano());
+        else if (ctx->STRING())
+            return Builder->CreateGlobalStringPtr(ctx->STRING()->getText().substr(1, ctx->STRING()->getText().size() - 2));
+        else
+            throw runtime_error("Valor desconhecido");
+
+        return {};
+    }
+
+    virtual std::any visitExpressao(MattyParser::ExpressaoContext *ctx)
+    {
+        if (auto *inteiro = dynamic_cast<MattyParser::InteiroContext *>(ctx))
+            return ConstantInt::get(Type::getInt32Ty(*Context), stoll(inteiro->INT()->getText()), true);
+        else if (auto *fracao = dynamic_cast<MattyParser::FracaoContext *>(ctx))
+        {
+            string text = fracao->FRACTION()->getText();
+            size_t sep = text.find("///");
+            double val = stod(text.substr(0, sep)) / stod(text.substr(sep + 3));
+            return ConstantFP::get(Type::getDoubleTy(*Context), val);
+        }
+        else if (auto *id = dynamic_cast<MattyParser::IdContext *>(ctx))
+        {
+            string var = id->ID()->getText();
+            string funcName = currentFunction->getName().str();
+            if (symbolTable[funcName].find(var) == symbolTable[funcName].end())
+                throw runtime_error("Variável não declarada: " + var);
+            return Builder->CreateLoad(symbolTable[funcName][var]->getAllocatedType(), symbolTable[funcName][var]);
+        }
+        else
+            throw runtime_error("Expressão desconhecida");
+
+        return {};
+    }
 };
