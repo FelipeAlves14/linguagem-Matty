@@ -65,29 +65,29 @@ public:
 
     virtual std::any visitEquacao(MattyParser::EquacaoContext *context) = 0;
 
-    virtual std::any visitNao_logico(MattyParser::Nao_logicoContext *context) = 0;
+    virtual std::any visitMaiorOuIgual(MattyParser::MaiorOuIgualContext *context) = 0;
 
     virtual std::any visitBool(MattyParser::BoolContext *context) = 0;
 
-    virtual std::any visitMaior_ou_igual(MattyParser::Maior_ou_igualContext *context) = 0;
+    virtual std::any visitMenorOuIgual(MattyParser::MenorOuIgualContext *context) = 0;
+
+    virtual std::any visitELogico(MattyParser::ELogicoContext *context) = 0;
 
     virtual std::any visitMaior(MattyParser::MaiorContext *context) = 0;
 
-    virtual std::any visitE_logico(MattyParser::E_logicoContext *context) = 0;
-
     virtual std::any visitMenor(MattyParser::MenorContext *context) = 0;
 
-    virtual std::any visitMenor_ou_igual(MattyParser::Menor_ou_igualContext *context) = 0;
-
-    virtual std::any visitOu_logico(MattyParser::Ou_logicoContext *context) = 0;
+    virtual std::any visitNaoLogico(MattyParser::NaoLogicoContext *context) = 0;
 
     virtual std::any visitDiferente(MattyParser::DiferenteContext *context) = 0;
 
-    virtual std::any visitPrioridade_de_operacoes_logicas(MattyParser::Prioridade_de_operacoes_logicasContext *context) = 0;
-
     virtual std::any visitIgual(MattyParser::IgualContext *context) = 0;
 
-    virtual std::any visitOu_exclusivo_logico(MattyParser::Ou_exclusivo_logicoContext *context) = 0;
+    virtual std::any visitOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext *context) = 0;
+
+    virtual std::any visitPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext *context) = 0;
+
+    virtual std::any visitOuLogico(MattyParser::OuLogicoContext *context) = 0;
 
 
 };

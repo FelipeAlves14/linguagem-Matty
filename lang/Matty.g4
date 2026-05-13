@@ -39,16 +39,16 @@ expressao:
 booleano:
 	BOOLEANO					# bool
 	| expressao '==' expressao	# igual
-	| expressao '<=' expressao	# menor_ou_igual
+	| expressao '<=' expressao	# menorOuIgual
 	| expressao '<' expressao	# menor
 	| expressao '>' expressao	# maior
-	| expressao '>=' expressao	# maior_ou_igual
+	| expressao '>=' expressao	# maiorOuIgual
 	| expressao '!=' expressao	# diferente
-	| '!' booleano				# nao_logico
-	| booleano 'and' booleano	# e_logico
-	| booleano 'or' booleano	# ou_logico
-	| booleano 'xor' booleano	# ou_exclusivo_logico
-	| '(' booleano ')'			# prioridade_de_operacoes_logicas;
+	| '!' booleano				# naoLogico
+	| booleano 'and' booleano	# eLogico
+	| booleano 'or' booleano	# ouLogico
+	| booleano 'xor' booleano	# ouExclusivoLogico
+	| '(' booleano ')'			# prioridadeDeOperacoesLogicas;
 
 BOOLEANO: 'true' | 'false';
 FRACTION: ('0' ..'9')+ '///' ('0' ..'9')+;

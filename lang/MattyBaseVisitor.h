@@ -107,7 +107,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitNao_logico(MattyParser::Nao_logicoContext *ctx) override {
+  virtual std::any visitMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -115,7 +115,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitMaior_ou_igual(MattyParser::Maior_ou_igualContext *ctx) override {
+  virtual std::any visitMenorOuIgual(MattyParser::MenorOuIgualContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitELogico(MattyParser::ELogicoContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -123,19 +127,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitE_logico(MattyParser::E_logicoContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual std::any visitMenor(MattyParser::MenorContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual std::any visitMenor_ou_igual(MattyParser::Menor_ou_igualContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitOu_logico(MattyParser::Ou_logicoContext *ctx) override {
+  virtual std::any visitNaoLogico(MattyParser::NaoLogicoContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -143,15 +139,19 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitPrioridade_de_operacoes_logicas(MattyParser::Prioridade_de_operacoes_logicasContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual std::any visitIgual(MattyParser::IgualContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual std::any visitOu_exclusivo_logico(MattyParser::Ou_exclusivo_logicoContext *ctx) override {
+  virtual std::any visitOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitOuLogico(MattyParser::OuLogicoContext *ctx) override {
     return visitChildren(ctx);
   }
 

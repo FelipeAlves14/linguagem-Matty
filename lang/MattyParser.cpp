@@ -1643,28 +1643,32 @@ void MattyParser::BooleanoContext::copyFrom(BooleanoContext *ctx) {
   ParserRuleContext::copyFrom(ctx);
 }
 
-//----------------- Nao_logicoContext ------------------------------------------------------------------
+//----------------- MaiorOuIgualContext ------------------------------------------------------------------
 
-MattyParser::BooleanoContext* MattyParser::Nao_logicoContext::booleano() {
-  return getRuleContext<MattyParser::BooleanoContext>(0);
+std::vector<MattyParser::ExpressaoContext *> MattyParser::MaiorOuIgualContext::expressao() {
+  return getRuleContexts<MattyParser::ExpressaoContext>();
 }
 
-MattyParser::Nao_logicoContext::Nao_logicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
+MattyParser::ExpressaoContext* MattyParser::MaiorOuIgualContext::expressao(size_t i) {
+  return getRuleContext<MattyParser::ExpressaoContext>(i);
+}
 
-void MattyParser::Nao_logicoContext::enterRule(tree::ParseTreeListener *listener) {
+MattyParser::MaiorOuIgualContext::MaiorOuIgualContext(BooleanoContext *ctx) { copyFrom(ctx); }
+
+void MattyParser::MaiorOuIgualContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterNao_logico(this);
+    parserListener->enterMaiorOuIgual(this);
 }
-void MattyParser::Nao_logicoContext::exitRule(tree::ParseTreeListener *listener) {
+void MattyParser::MaiorOuIgualContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitNao_logico(this);
+    parserListener->exitMaiorOuIgual(this);
 }
 
-std::any MattyParser::Nao_logicoContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any MattyParser::MaiorOuIgualContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitNao_logico(this);
+    return parserVisitor->visitMaiorOuIgual(this);
   else
     return visitor->visitChildren(this);
 }
@@ -1693,32 +1697,61 @@ std::any MattyParser::BoolContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
-//----------------- Maior_ou_igualContext ------------------------------------------------------------------
+//----------------- MenorOuIgualContext ------------------------------------------------------------------
 
-std::vector<MattyParser::ExpressaoContext *> MattyParser::Maior_ou_igualContext::expressao() {
+std::vector<MattyParser::ExpressaoContext *> MattyParser::MenorOuIgualContext::expressao() {
   return getRuleContexts<MattyParser::ExpressaoContext>();
 }
 
-MattyParser::ExpressaoContext* MattyParser::Maior_ou_igualContext::expressao(size_t i) {
+MattyParser::ExpressaoContext* MattyParser::MenorOuIgualContext::expressao(size_t i) {
   return getRuleContext<MattyParser::ExpressaoContext>(i);
 }
 
-MattyParser::Maior_ou_igualContext::Maior_ou_igualContext(BooleanoContext *ctx) { copyFrom(ctx); }
+MattyParser::MenorOuIgualContext::MenorOuIgualContext(BooleanoContext *ctx) { copyFrom(ctx); }
 
-void MattyParser::Maior_ou_igualContext::enterRule(tree::ParseTreeListener *listener) {
+void MattyParser::MenorOuIgualContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterMaior_ou_igual(this);
+    parserListener->enterMenorOuIgual(this);
 }
-void MattyParser::Maior_ou_igualContext::exitRule(tree::ParseTreeListener *listener) {
+void MattyParser::MenorOuIgualContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitMaior_ou_igual(this);
+    parserListener->exitMenorOuIgual(this);
 }
 
-std::any MattyParser::Maior_ou_igualContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any MattyParser::MenorOuIgualContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitMaior_ou_igual(this);
+    return parserVisitor->visitMenorOuIgual(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ELogicoContext ------------------------------------------------------------------
+
+std::vector<MattyParser::BooleanoContext *> MattyParser::ELogicoContext::booleano() {
+  return getRuleContexts<MattyParser::BooleanoContext>();
+}
+
+MattyParser::BooleanoContext* MattyParser::ELogicoContext::booleano(size_t i) {
+  return getRuleContext<MattyParser::BooleanoContext>(i);
+}
+
+MattyParser::ELogicoContext::ELogicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
+
+void MattyParser::ELogicoContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterELogico(this);
+}
+void MattyParser::ELogicoContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitELogico(this);
+}
+
+std::any MattyParser::ELogicoContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
+    return parserVisitor->visitELogico(this);
   else
     return visitor->visitChildren(this);
 }
@@ -1751,35 +1784,6 @@ std::any MattyParser::MaiorContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
-//----------------- E_logicoContext ------------------------------------------------------------------
-
-std::vector<MattyParser::BooleanoContext *> MattyParser::E_logicoContext::booleano() {
-  return getRuleContexts<MattyParser::BooleanoContext>();
-}
-
-MattyParser::BooleanoContext* MattyParser::E_logicoContext::booleano(size_t i) {
-  return getRuleContext<MattyParser::BooleanoContext>(i);
-}
-
-MattyParser::E_logicoContext::E_logicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
-
-void MattyParser::E_logicoContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterE_logico(this);
-}
-void MattyParser::E_logicoContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitE_logico(this);
-}
-
-std::any MattyParser::E_logicoContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitE_logico(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- MenorContext ------------------------------------------------------------------
 
 std::vector<MattyParser::ExpressaoContext *> MattyParser::MenorContext::expressao() {
@@ -1809,61 +1813,28 @@ std::any MattyParser::MenorContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
-//----------------- Menor_ou_igualContext ------------------------------------------------------------------
+//----------------- NaoLogicoContext ------------------------------------------------------------------
 
-std::vector<MattyParser::ExpressaoContext *> MattyParser::Menor_ou_igualContext::expressao() {
-  return getRuleContexts<MattyParser::ExpressaoContext>();
+MattyParser::BooleanoContext* MattyParser::NaoLogicoContext::booleano() {
+  return getRuleContext<MattyParser::BooleanoContext>(0);
 }
 
-MattyParser::ExpressaoContext* MattyParser::Menor_ou_igualContext::expressao(size_t i) {
-  return getRuleContext<MattyParser::ExpressaoContext>(i);
-}
+MattyParser::NaoLogicoContext::NaoLogicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
 
-MattyParser::Menor_ou_igualContext::Menor_ou_igualContext(BooleanoContext *ctx) { copyFrom(ctx); }
-
-void MattyParser::Menor_ou_igualContext::enterRule(tree::ParseTreeListener *listener) {
+void MattyParser::NaoLogicoContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterMenor_ou_igual(this);
+    parserListener->enterNaoLogico(this);
 }
-void MattyParser::Menor_ou_igualContext::exitRule(tree::ParseTreeListener *listener) {
+void MattyParser::NaoLogicoContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitMenor_ou_igual(this);
+    parserListener->exitNaoLogico(this);
 }
 
-std::any MattyParser::Menor_ou_igualContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any MattyParser::NaoLogicoContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitMenor_ou_igual(this);
-  else
-    return visitor->visitChildren(this);
-}
-//----------------- Ou_logicoContext ------------------------------------------------------------------
-
-std::vector<MattyParser::BooleanoContext *> MattyParser::Ou_logicoContext::booleano() {
-  return getRuleContexts<MattyParser::BooleanoContext>();
-}
-
-MattyParser::BooleanoContext* MattyParser::Ou_logicoContext::booleano(size_t i) {
-  return getRuleContext<MattyParser::BooleanoContext>(i);
-}
-
-MattyParser::Ou_logicoContext::Ou_logicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
-
-void MattyParser::Ou_logicoContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterOu_logico(this);
-}
-void MattyParser::Ou_logicoContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitOu_logico(this);
-}
-
-std::any MattyParser::Ou_logicoContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitOu_logico(this);
+    return parserVisitor->visitNaoLogico(this);
   else
     return visitor->visitChildren(this);
 }
@@ -1896,31 +1867,6 @@ std::any MattyParser::DiferenteContext::accept(tree::ParseTreeVisitor *visitor) 
   else
     return visitor->visitChildren(this);
 }
-//----------------- Prioridade_de_operacoes_logicasContext ------------------------------------------------------------------
-
-MattyParser::BooleanoContext* MattyParser::Prioridade_de_operacoes_logicasContext::booleano() {
-  return getRuleContext<MattyParser::BooleanoContext>(0);
-}
-
-MattyParser::Prioridade_de_operacoes_logicasContext::Prioridade_de_operacoes_logicasContext(BooleanoContext *ctx) { copyFrom(ctx); }
-
-void MattyParser::Prioridade_de_operacoes_logicasContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterPrioridade_de_operacoes_logicas(this);
-}
-void MattyParser::Prioridade_de_operacoes_logicasContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitPrioridade_de_operacoes_logicas(this);
-}
-
-std::any MattyParser::Prioridade_de_operacoes_logicasContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitPrioridade_de_operacoes_logicas(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- IgualContext ------------------------------------------------------------------
 
 std::vector<MattyParser::ExpressaoContext *> MattyParser::IgualContext::expressao() {
@@ -1950,32 +1896,86 @@ std::any MattyParser::IgualContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
-//----------------- Ou_exclusivo_logicoContext ------------------------------------------------------------------
+//----------------- OuExclusivoLogicoContext ------------------------------------------------------------------
 
-std::vector<MattyParser::BooleanoContext *> MattyParser::Ou_exclusivo_logicoContext::booleano() {
+std::vector<MattyParser::BooleanoContext *> MattyParser::OuExclusivoLogicoContext::booleano() {
   return getRuleContexts<MattyParser::BooleanoContext>();
 }
 
-MattyParser::BooleanoContext* MattyParser::Ou_exclusivo_logicoContext::booleano(size_t i) {
+MattyParser::BooleanoContext* MattyParser::OuExclusivoLogicoContext::booleano(size_t i) {
   return getRuleContext<MattyParser::BooleanoContext>(i);
 }
 
-MattyParser::Ou_exclusivo_logicoContext::Ou_exclusivo_logicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
+MattyParser::OuExclusivoLogicoContext::OuExclusivoLogicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
 
-void MattyParser::Ou_exclusivo_logicoContext::enterRule(tree::ParseTreeListener *listener) {
+void MattyParser::OuExclusivoLogicoContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOu_exclusivo_logico(this);
+    parserListener->enterOuExclusivoLogico(this);
 }
-void MattyParser::Ou_exclusivo_logicoContext::exitRule(tree::ParseTreeListener *listener) {
+void MattyParser::OuExclusivoLogicoContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MattyListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOu_exclusivo_logico(this);
+    parserListener->exitOuExclusivoLogico(this);
 }
 
-std::any MattyParser::Ou_exclusivo_logicoContext::accept(tree::ParseTreeVisitor *visitor) {
+std::any MattyParser::OuExclusivoLogicoContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitOu_exclusivo_logico(this);
+    return parserVisitor->visitOuExclusivoLogico(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- PrioridadeDeOperacoesLogicasContext ------------------------------------------------------------------
+
+MattyParser::BooleanoContext* MattyParser::PrioridadeDeOperacoesLogicasContext::booleano() {
+  return getRuleContext<MattyParser::BooleanoContext>(0);
+}
+
+MattyParser::PrioridadeDeOperacoesLogicasContext::PrioridadeDeOperacoesLogicasContext(BooleanoContext *ctx) { copyFrom(ctx); }
+
+void MattyParser::PrioridadeDeOperacoesLogicasContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterPrioridadeDeOperacoesLogicas(this);
+}
+void MattyParser::PrioridadeDeOperacoesLogicasContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitPrioridadeDeOperacoesLogicas(this);
+}
+
+std::any MattyParser::PrioridadeDeOperacoesLogicasContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
+    return parserVisitor->visitPrioridadeDeOperacoesLogicas(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- OuLogicoContext ------------------------------------------------------------------
+
+std::vector<MattyParser::BooleanoContext *> MattyParser::OuLogicoContext::booleano() {
+  return getRuleContexts<MattyParser::BooleanoContext>();
+}
+
+MattyParser::BooleanoContext* MattyParser::OuLogicoContext::booleano(size_t i) {
+  return getRuleContext<MattyParser::BooleanoContext>(i);
+}
+
+MattyParser::OuLogicoContext::OuLogicoContext(BooleanoContext *ctx) { copyFrom(ctx); }
+
+void MattyParser::OuLogicoContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterOuLogico(this);
+}
+void MattyParser::OuLogicoContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitOuLogico(this);
+}
+
+std::any MattyParser::OuLogicoContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
+    return parserVisitor->visitOuLogico(this);
   else
     return visitor->visitChildren(this);
 }
@@ -2032,7 +2032,7 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
     }
 
     case 3: {
-      _localctx = _tracker.createInstance<Menor_ou_igualContext>(_localctx);
+      _localctx = _tracker.createInstance<MenorOuIgualContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
       setState(197);
@@ -2071,7 +2071,7 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
     }
 
     case 6: {
-      _localctx = _tracker.createInstance<Maior_ou_igualContext>(_localctx);
+      _localctx = _tracker.createInstance<MaiorOuIgualContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
       setState(209);
@@ -2097,7 +2097,7 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
     }
 
     case 8: {
-      _localctx = _tracker.createInstance<Nao_logicoContext>(_localctx);
+      _localctx = _tracker.createInstance<NaoLogicoContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
       setState(217);
@@ -2108,7 +2108,7 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
     }
 
     case 9: {
-      _localctx = _tracker.createInstance<Prioridade_de_operacoes_logicasContext>(_localctx);
+      _localctx = _tracker.createInstance<PrioridadeDeOperacoesLogicasContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
       setState(219);
@@ -2136,7 +2136,7 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
         _errHandler->sync(this);
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx)) {
         case 1: {
-          auto newContext = _tracker.createInstance<E_logicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
+          auto newContext = _tracker.createInstance<ELogicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleBooleano);
           setState(225);
@@ -2150,7 +2150,7 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
         }
 
         case 2: {
-          auto newContext = _tracker.createInstance<Ou_logicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
+          auto newContext = _tracker.createInstance<OuLogicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleBooleano);
           setState(228);
@@ -2164,7 +2164,7 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
         }
 
         case 3: {
-          auto newContext = _tracker.createInstance<Ou_exclusivo_logicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
+          auto newContext = _tracker.createInstance<OuExclusivoLogicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleBooleano);
           setState(231);

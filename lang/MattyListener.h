@@ -83,41 +83,41 @@ public:
   virtual void enterEquacao(MattyParser::EquacaoContext *ctx) = 0;
   virtual void exitEquacao(MattyParser::EquacaoContext *ctx) = 0;
 
-  virtual void enterNao_logico(MattyParser::Nao_logicoContext *ctx) = 0;
-  virtual void exitNao_logico(MattyParser::Nao_logicoContext *ctx) = 0;
+  virtual void enterMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx) = 0;
+  virtual void exitMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx) = 0;
 
   virtual void enterBool(MattyParser::BoolContext *ctx) = 0;
   virtual void exitBool(MattyParser::BoolContext *ctx) = 0;
 
-  virtual void enterMaior_ou_igual(MattyParser::Maior_ou_igualContext *ctx) = 0;
-  virtual void exitMaior_ou_igual(MattyParser::Maior_ou_igualContext *ctx) = 0;
+  virtual void enterMenorOuIgual(MattyParser::MenorOuIgualContext *ctx) = 0;
+  virtual void exitMenorOuIgual(MattyParser::MenorOuIgualContext *ctx) = 0;
+
+  virtual void enterELogico(MattyParser::ELogicoContext *ctx) = 0;
+  virtual void exitELogico(MattyParser::ELogicoContext *ctx) = 0;
 
   virtual void enterMaior(MattyParser::MaiorContext *ctx) = 0;
   virtual void exitMaior(MattyParser::MaiorContext *ctx) = 0;
 
-  virtual void enterE_logico(MattyParser::E_logicoContext *ctx) = 0;
-  virtual void exitE_logico(MattyParser::E_logicoContext *ctx) = 0;
-
   virtual void enterMenor(MattyParser::MenorContext *ctx) = 0;
   virtual void exitMenor(MattyParser::MenorContext *ctx) = 0;
 
-  virtual void enterMenor_ou_igual(MattyParser::Menor_ou_igualContext *ctx) = 0;
-  virtual void exitMenor_ou_igual(MattyParser::Menor_ou_igualContext *ctx) = 0;
-
-  virtual void enterOu_logico(MattyParser::Ou_logicoContext *ctx) = 0;
-  virtual void exitOu_logico(MattyParser::Ou_logicoContext *ctx) = 0;
+  virtual void enterNaoLogico(MattyParser::NaoLogicoContext *ctx) = 0;
+  virtual void exitNaoLogico(MattyParser::NaoLogicoContext *ctx) = 0;
 
   virtual void enterDiferente(MattyParser::DiferenteContext *ctx) = 0;
   virtual void exitDiferente(MattyParser::DiferenteContext *ctx) = 0;
 
-  virtual void enterPrioridade_de_operacoes_logicas(MattyParser::Prioridade_de_operacoes_logicasContext *ctx) = 0;
-  virtual void exitPrioridade_de_operacoes_logicas(MattyParser::Prioridade_de_operacoes_logicasContext *ctx) = 0;
-
   virtual void enterIgual(MattyParser::IgualContext *ctx) = 0;
   virtual void exitIgual(MattyParser::IgualContext *ctx) = 0;
 
-  virtual void enterOu_exclusivo_logico(MattyParser::Ou_exclusivo_logicoContext *ctx) = 0;
-  virtual void exitOu_exclusivo_logico(MattyParser::Ou_exclusivo_logicoContext *ctx) = 0;
+  virtual void enterOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext *ctx) = 0;
+  virtual void exitOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext *ctx) = 0;
+
+  virtual void enterPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext *ctx) = 0;
+  virtual void exitPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext *ctx) = 0;
+
+  virtual void enterOuLogico(MattyParser::OuLogicoContext *ctx) = 0;
+  virtual void exitOuLogico(MattyParser::OuLogicoContext *ctx) = 0;
 
 
 };

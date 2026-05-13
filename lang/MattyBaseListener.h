@@ -85,41 +85,41 @@ public:
   virtual void enterEquacao(MattyParser::EquacaoContext * /*ctx*/) override { }
   virtual void exitEquacao(MattyParser::EquacaoContext * /*ctx*/) override { }
 
-  virtual void enterNao_logico(MattyParser::Nao_logicoContext * /*ctx*/) override { }
-  virtual void exitNao_logico(MattyParser::Nao_logicoContext * /*ctx*/) override { }
+  virtual void enterMaiorOuIgual(MattyParser::MaiorOuIgualContext * /*ctx*/) override { }
+  virtual void exitMaiorOuIgual(MattyParser::MaiorOuIgualContext * /*ctx*/) override { }
 
   virtual void enterBool(MattyParser::BoolContext * /*ctx*/) override { }
   virtual void exitBool(MattyParser::BoolContext * /*ctx*/) override { }
 
-  virtual void enterMaior_ou_igual(MattyParser::Maior_ou_igualContext * /*ctx*/) override { }
-  virtual void exitMaior_ou_igual(MattyParser::Maior_ou_igualContext * /*ctx*/) override { }
+  virtual void enterMenorOuIgual(MattyParser::MenorOuIgualContext * /*ctx*/) override { }
+  virtual void exitMenorOuIgual(MattyParser::MenorOuIgualContext * /*ctx*/) override { }
+
+  virtual void enterELogico(MattyParser::ELogicoContext * /*ctx*/) override { }
+  virtual void exitELogico(MattyParser::ELogicoContext * /*ctx*/) override { }
 
   virtual void enterMaior(MattyParser::MaiorContext * /*ctx*/) override { }
   virtual void exitMaior(MattyParser::MaiorContext * /*ctx*/) override { }
 
-  virtual void enterE_logico(MattyParser::E_logicoContext * /*ctx*/) override { }
-  virtual void exitE_logico(MattyParser::E_logicoContext * /*ctx*/) override { }
-
   virtual void enterMenor(MattyParser::MenorContext * /*ctx*/) override { }
   virtual void exitMenor(MattyParser::MenorContext * /*ctx*/) override { }
 
-  virtual void enterMenor_ou_igual(MattyParser::Menor_ou_igualContext * /*ctx*/) override { }
-  virtual void exitMenor_ou_igual(MattyParser::Menor_ou_igualContext * /*ctx*/) override { }
-
-  virtual void enterOu_logico(MattyParser::Ou_logicoContext * /*ctx*/) override { }
-  virtual void exitOu_logico(MattyParser::Ou_logicoContext * /*ctx*/) override { }
+  virtual void enterNaoLogico(MattyParser::NaoLogicoContext * /*ctx*/) override { }
+  virtual void exitNaoLogico(MattyParser::NaoLogicoContext * /*ctx*/) override { }
 
   virtual void enterDiferente(MattyParser::DiferenteContext * /*ctx*/) override { }
   virtual void exitDiferente(MattyParser::DiferenteContext * /*ctx*/) override { }
 
-  virtual void enterPrioridade_de_operacoes_logicas(MattyParser::Prioridade_de_operacoes_logicasContext * /*ctx*/) override { }
-  virtual void exitPrioridade_de_operacoes_logicas(MattyParser::Prioridade_de_operacoes_logicasContext * /*ctx*/) override { }
-
   virtual void enterIgual(MattyParser::IgualContext * /*ctx*/) override { }
   virtual void exitIgual(MattyParser::IgualContext * /*ctx*/) override { }
 
-  virtual void enterOu_exclusivo_logico(MattyParser::Ou_exclusivo_logicoContext * /*ctx*/) override { }
-  virtual void exitOu_exclusivo_logico(MattyParser::Ou_exclusivo_logicoContext * /*ctx*/) override { }
+  virtual void enterOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext * /*ctx*/) override { }
+  virtual void exitOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext * /*ctx*/) override { }
+
+  virtual void enterPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext * /*ctx*/) override { }
+  virtual void exitPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext * /*ctx*/) override { }
+
+  virtual void enterOuLogico(MattyParser::OuLogicoContext * /*ctx*/) override { }
+  virtual void exitOuLogico(MattyParser::OuLogicoContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

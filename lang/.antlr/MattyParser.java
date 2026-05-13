@@ -1052,11 +1052,14 @@ public class MattyParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class Nao_logicoContext extends BooleanoContext {
-		public BooleanoContext booleano() {
-			return getRuleContext(BooleanoContext.class,0);
+	public static class MaiorOuIgualContext extends BooleanoContext {
+		public List<ExpressaoContext> expressao() {
+			return getRuleContexts(ExpressaoContext.class);
 		}
-		public Nao_logicoContext(BooleanoContext ctx) { copyFrom(ctx); }
+		public ExpressaoContext expressao(int i) {
+			return getRuleContext(ExpressaoContext.class,i);
+		}
+		public MaiorOuIgualContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class BoolContext extends BooleanoContext {
@@ -1064,14 +1067,24 @@ public class MattyParser extends Parser {
 		public BoolContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class Maior_ou_igualContext extends BooleanoContext {
+	public static class MenorOuIgualContext extends BooleanoContext {
 		public List<ExpressaoContext> expressao() {
 			return getRuleContexts(ExpressaoContext.class);
 		}
 		public ExpressaoContext expressao(int i) {
 			return getRuleContext(ExpressaoContext.class,i);
 		}
-		public Maior_ou_igualContext(BooleanoContext ctx) { copyFrom(ctx); }
+		public MenorOuIgualContext(BooleanoContext ctx) { copyFrom(ctx); }
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ELogicoContext extends BooleanoContext {
+		public List<BooleanoContext> booleano() {
+			return getRuleContexts(BooleanoContext.class);
+		}
+		public BooleanoContext booleano(int i) {
+			return getRuleContext(BooleanoContext.class,i);
+		}
+		public ELogicoContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class MaiorContext extends BooleanoContext {
@@ -1084,16 +1097,6 @@ public class MattyParser extends Parser {
 		public MaiorContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class E_logicoContext extends BooleanoContext {
-		public List<BooleanoContext> booleano() {
-			return getRuleContexts(BooleanoContext.class);
-		}
-		public BooleanoContext booleano(int i) {
-			return getRuleContext(BooleanoContext.class,i);
-		}
-		public E_logicoContext(BooleanoContext ctx) { copyFrom(ctx); }
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class MenorContext extends BooleanoContext {
 		public List<ExpressaoContext> expressao() {
 			return getRuleContexts(ExpressaoContext.class);
@@ -1104,24 +1107,11 @@ public class MattyParser extends Parser {
 		public MenorContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class Menor_ou_igualContext extends BooleanoContext {
-		public List<ExpressaoContext> expressao() {
-			return getRuleContexts(ExpressaoContext.class);
+	public static class NaoLogicoContext extends BooleanoContext {
+		public BooleanoContext booleano() {
+			return getRuleContext(BooleanoContext.class,0);
 		}
-		public ExpressaoContext expressao(int i) {
-			return getRuleContext(ExpressaoContext.class,i);
-		}
-		public Menor_ou_igualContext(BooleanoContext ctx) { copyFrom(ctx); }
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class Ou_logicoContext extends BooleanoContext {
-		public List<BooleanoContext> booleano() {
-			return getRuleContexts(BooleanoContext.class);
-		}
-		public BooleanoContext booleano(int i) {
-			return getRuleContext(BooleanoContext.class,i);
-		}
-		public Ou_logicoContext(BooleanoContext ctx) { copyFrom(ctx); }
+		public NaoLogicoContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class DiferenteContext extends BooleanoContext {
@@ -1134,13 +1124,6 @@ public class MattyParser extends Parser {
 		public DiferenteContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class Prioridade_de_operacoes_logicasContext extends BooleanoContext {
-		public BooleanoContext booleano() {
-			return getRuleContext(BooleanoContext.class,0);
-		}
-		public Prioridade_de_operacoes_logicasContext(BooleanoContext ctx) { copyFrom(ctx); }
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class IgualContext extends BooleanoContext {
 		public List<ExpressaoContext> expressao() {
 			return getRuleContexts(ExpressaoContext.class);
@@ -1151,14 +1134,31 @@ public class MattyParser extends Parser {
 		public IgualContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class Ou_exclusivo_logicoContext extends BooleanoContext {
+	public static class OuExclusivoLogicoContext extends BooleanoContext {
 		public List<BooleanoContext> booleano() {
 			return getRuleContexts(BooleanoContext.class);
 		}
 		public BooleanoContext booleano(int i) {
 			return getRuleContext(BooleanoContext.class,i);
 		}
-		public Ou_exclusivo_logicoContext(BooleanoContext ctx) { copyFrom(ctx); }
+		public OuExclusivoLogicoContext(BooleanoContext ctx) { copyFrom(ctx); }
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class PrioridadeDeOperacoesLogicasContext extends BooleanoContext {
+		public BooleanoContext booleano() {
+			return getRuleContext(BooleanoContext.class,0);
+		}
+		public PrioridadeDeOperacoesLogicasContext(BooleanoContext ctx) { copyFrom(ctx); }
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class OuLogicoContext extends BooleanoContext {
+		public List<BooleanoContext> booleano() {
+			return getRuleContexts(BooleanoContext.class);
+		}
+		public BooleanoContext booleano(int i) {
+			return getRuleContext(BooleanoContext.class,i);
+		}
+		public OuLogicoContext(BooleanoContext ctx) { copyFrom(ctx); }
 	}
 
 	public final BooleanoContext booleano() throws RecognitionException {
@@ -1204,7 +1204,7 @@ public class MattyParser extends Parser {
 				break;
 			case 3:
 				{
-				_localctx = new Menor_ou_igualContext(_localctx);
+				_localctx = new MenorOuIgualContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(197);
@@ -1243,7 +1243,7 @@ public class MattyParser extends Parser {
 				break;
 			case 6:
 				{
-				_localctx = new Maior_ou_igualContext(_localctx);
+				_localctx = new MaiorOuIgualContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(209);
@@ -1269,7 +1269,7 @@ public class MattyParser extends Parser {
 				break;
 			case 8:
 				{
-				_localctx = new Nao_logicoContext(_localctx);
+				_localctx = new NaoLogicoContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(217);
@@ -1280,7 +1280,7 @@ public class MattyParser extends Parser {
 				break;
 			case 9:
 				{
-				_localctx = new Prioridade_de_operacoes_logicasContext(_localctx);
+				_localctx = new PrioridadeDeOperacoesLogicasContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(219);
@@ -1306,7 +1306,7 @@ public class MattyParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 					case 1:
 						{
-						_localctx = new E_logicoContext(new BooleanoContext(_parentctx, _parentState));
+						_localctx = new ELogicoContext(new BooleanoContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_booleano);
 						setState(225);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
@@ -1318,7 +1318,7 @@ public class MattyParser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new Ou_logicoContext(new BooleanoContext(_parentctx, _parentState));
+						_localctx = new OuLogicoContext(new BooleanoContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_booleano);
 						setState(228);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -1330,7 +1330,7 @@ public class MattyParser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new Ou_exclusivo_logicoContext(new BooleanoContext(_parentctx, _parentState));
+						_localctx = new OuExclusivoLogicoContext(new BooleanoContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_booleano);
 						setState(231);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");

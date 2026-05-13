@@ -385,11 +385,12 @@ public:
    
   };
 
-  class  Nao_logicoContext : public BooleanoContext {
+  class  MaiorOuIgualContext : public BooleanoContext {
   public:
-    Nao_logicoContext(BooleanoContext *ctx);
+    MaiorOuIgualContext(BooleanoContext *ctx);
 
-    BooleanoContext *booleano();
+    std::vector<ExpressaoContext *> expressao();
+    ExpressaoContext* expressao(size_t i);
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
@@ -407,12 +408,24 @@ public:
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  Maior_ou_igualContext : public BooleanoContext {
+  class  MenorOuIgualContext : public BooleanoContext {
   public:
-    Maior_ou_igualContext(BooleanoContext *ctx);
+    MenorOuIgualContext(BooleanoContext *ctx);
 
     std::vector<ExpressaoContext *> expressao();
     ExpressaoContext* expressao(size_t i);
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ELogicoContext : public BooleanoContext {
+  public:
+    ELogicoContext(BooleanoContext *ctx);
+
+    std::vector<BooleanoContext *> booleano();
+    BooleanoContext* booleano(size_t i);
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
@@ -431,18 +444,6 @@ public:
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  E_logicoContext : public BooleanoContext {
-  public:
-    E_logicoContext(BooleanoContext *ctx);
-
-    std::vector<BooleanoContext *> booleano();
-    BooleanoContext* booleano(size_t i);
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
   class  MenorContext : public BooleanoContext {
   public:
     MenorContext(BooleanoContext *ctx);
@@ -455,24 +456,11 @@ public:
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  Menor_ou_igualContext : public BooleanoContext {
+  class  NaoLogicoContext : public BooleanoContext {
   public:
-    Menor_ou_igualContext(BooleanoContext *ctx);
+    NaoLogicoContext(BooleanoContext *ctx);
 
-    std::vector<ExpressaoContext *> expressao();
-    ExpressaoContext* expressao(size_t i);
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  Ou_logicoContext : public BooleanoContext {
-  public:
-    Ou_logicoContext(BooleanoContext *ctx);
-
-    std::vector<BooleanoContext *> booleano();
-    BooleanoContext* booleano(size_t i);
+    BooleanoContext *booleano();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
@@ -491,17 +479,6 @@ public:
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  Prioridade_de_operacoes_logicasContext : public BooleanoContext {
-  public:
-    Prioridade_de_operacoes_logicasContext(BooleanoContext *ctx);
-
-    BooleanoContext *booleano();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
   class  IgualContext : public BooleanoContext {
   public:
     IgualContext(BooleanoContext *ctx);
@@ -514,9 +491,32 @@ public:
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  Ou_exclusivo_logicoContext : public BooleanoContext {
+  class  OuExclusivoLogicoContext : public BooleanoContext {
   public:
-    Ou_exclusivo_logicoContext(BooleanoContext *ctx);
+    OuExclusivoLogicoContext(BooleanoContext *ctx);
+
+    std::vector<BooleanoContext *> booleano();
+    BooleanoContext* booleano(size_t i);
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  PrioridadeDeOperacoesLogicasContext : public BooleanoContext {
+  public:
+    PrioridadeDeOperacoesLogicasContext(BooleanoContext *ctx);
+
+    BooleanoContext *booleano();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  OuLogicoContext : public BooleanoContext {
+  public:
+    OuLogicoContext(BooleanoContext *ctx);
 
     std::vector<BooleanoContext *> booleano();
     BooleanoContext* booleano(size_t i);
