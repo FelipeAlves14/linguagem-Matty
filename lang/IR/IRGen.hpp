@@ -310,10 +310,10 @@ public:
 
     virtual std::any visitValor(MattyParser::ValorContext *ctx) override
     {
-        if (ctx->expressao())
-            return visit(ctx->expressao());
-        else if (ctx->booleano())
-            return visit(ctx->booleano());
+        if (ctx->booleano())
+            return visitBooleano(ctx->booleano());
+        else if (ctx->expressao())
+            return visitExpressao(ctx->expressao());
         else if (ctx->STRING())
             return Builder->CreateGlobalStringPtr(ctx->STRING()->getText().substr(1, ctx->STRING()->getText().size() - 2));
         else
@@ -324,26 +324,115 @@ public:
 
     virtual std::any visitExpressao(MattyParser::ExpressaoContext *ctx)
     {
-        if (auto *inteiro = dynamic_cast<MattyParser::InteiroContext *>(ctx))
-            return ConstantInt::get(Type::getInt32Ty(*Context), stoll(inteiro->INT()->getText()), true);
+        if (auto *equacao = dynamic_cast<MattyParser::EquacaoContext *>(ctx))
+            visitEquacao(equacao);
+
         else if (auto *fracao = dynamic_cast<MattyParser::FracaoContext *>(ctx))
-        {
-            string text = fracao->FRACTION()->getText();
-            size_t sep = text.find("///");
-            double val = stod(text.substr(0, sep)) / stod(text.substr(sep + 3));
-            return ConstantFP::get(Type::getDoubleTy(*Context), val);
-        }
+            visitFracao(fracao);
+
         else if (auto *id = dynamic_cast<MattyParser::IdContext *>(ctx))
-        {
-            string var = id->ID()->getText();
-            string funcName = currentFunction->getName().str();
-            if (symbolTable[funcName].find(var) == symbolTable[funcName].end())
-                throw runtime_error("Variável não declarada: " + var);
-            return Builder->CreateLoad(symbolTable[funcName][var]->getAllocatedType(), symbolTable[funcName][var]);
-        }
+            visitId(id);
+
+        else if (auto *inteiro = dynamic_cast<MattyParser::InteiroContext *>(ctx))
+            visitInteiro(inteiro);
+
+        else if (auto *leia = dynamic_cast<MattyParser::LeiaContext *>(ctx))
+            visitLeia(leia);
+
+        else if (auto *logaritmo = dynamic_cast<MattyParser::LogaritmoContext *>(ctx))
+            visitLogaritmo(logaritmo);
+
+        else if (auto *multiplicacaoOuDivisao = dynamic_cast<MattyParser::MultiplicacaoOuDivisaoContext *>(ctx))
+            visitMultiplicacaoOuDivisao(multiplicacaoOuDivisao);
+
+        else if (auto *potenciacao = dynamic_cast<MattyParser::PotenciacaoContext *>(ctx))
+            visitPotenciacao(potenciacao);
+
+        else if (auto *prioridade = dynamic_cast<MattyParser::PrioridadeDeOperacoesContext *>(ctx))
+            visitPrioridadeDeOperacoes(prioridade);
+
+        else if (auto *raiz = dynamic_cast<MattyParser::RaizContext *>(ctx))
+            visitRaiz(raiz);
+
+        else if (auto *regraDeTres = dynamic_cast<MattyParser::RegraDeTresContext *>(ctx))
+            visitRegraDeTres(regraDeTres);
+
+        else if (auto *somaOuSubtracao = dynamic_cast<MattyParser::SomaOuSubtracaoContext *>(ctx))
+            return visitSomaOuSubtracao(somaOuSubtracao);
+
         else
             throw runtime_error("Expressão desconhecida");
 
         return {};
     }
+
+    virtual std::any visitBooleano(MattyParser::BooleanoContext *ctx)
+    {
+        if (auto *boolean = dynamic_cast<MattyParser::BoolContext *>(ctx))
+            return visitBool(boolean);
+
+        else if (auto *diferente = dynamic_cast<MattyParser::DiferenteContext *>(ctx))
+            return visitDiferente(diferente);
+
+        else if (auto *eLogico = dynamic_cast<MattyParser::ELogicoContext *>(ctx))
+            return visitELogico(eLogico);
+
+        else if (auto *igual = dynamic_cast<MattyParser::IgualContext *>(ctx))
+            return visitIgual(igual);
+
+        else if (auto *maior = dynamic_cast<MattyParser::MaiorContext *>(ctx))
+            return visitMaior(maior);
+
+        else if (auto *maiorOuIgual = dynamic_cast<MattyParser::MaiorOuIgualContext *>(ctx))
+            return visitMaiorOuIgual(maiorOuIgual);
+
+        else if (auto *menor = dynamic_cast<MattyParser::MenorContext *>(ctx))
+            return visitMenor(menor);
+
+        else if (auto *menorOuIgual = dynamic_cast<MattyParser::MenorOuIgualContext *>(ctx))
+            return visitMenorOuIgual(menorOuIgual);
+
+        else if (auto *naoLogico = dynamic_cast<MattyParser::NaoLogicoContext *>(ctx))
+            return visitNaoLogico(naoLogico);
+
+        else if (auto *ouExclusivoLogico = dynamic_cast<MattyParser::OuExclusivoLogicoContext *>(ctx))
+            return visitOuExclusivoLogico(ouExclusivoLogico);
+
+        else if (auto *ouLogico = dynamic_cast<MattyParser::OuLogicoContext *>(ctx))
+            return visitOuLogico(ouLogico);
+
+        else if (auto *prioridade = dynamic_cast<MattyParser::PrioridadeDeOperacoesLogicasContext *>(ctx))
+            return visitPrioridadeDeOperacoesLogicas(prioridade);
+
+        else
+            throw runtime_error("Valor booleano desconhecido");
+
+        return {};
+    }
+
+    virtual std::any visitSomaOuSubtracao(MattyParser::SomaOuSubtracaoContext *ctx);
+    virtual std::any visitPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext *ctx);
+    virtual std::any visitOuLogico(MattyParser::OuLogicoContext *ctx);
+    virtual std::any visitOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext *ctx);
+    virtual std::any visitNaoLogico(MattyParser::NaoLogicoContext *ctx);
+    virtual std::any visitMenorOuIgual(MattyParser::MenorOuIgualContext *ctx);
+    virtual std::any visitMenor(MattyParser::MenorContext *ctx);
+    virtual std::any visitMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx);
+    virtual std::any visitMaior(MattyParser::MaiorContext *ctx);
+    virtual std::any visitIgual(MattyParser::IgualContext *ctx);
+    virtual std::any visitELogico(MattyParser::ELogicoContext *ctx);
+    virtual std::any visitDiferente(MattyParser::DiferenteContext *ctx);
+    virtual std::any visitBool(MattyParser::BoolContext *ctx);
+    virtual std::any visitRegraDeTres(MattyParser::RegraDeTresContext *ctx);
+    virtual std::any visitRaiz(MattyParser::RaizContext *ctx);
+    virtual std::any visitPrioridadeDeOperacoes(MattyParser::PrioridadeDeOperacoesContext *ctx);
+    virtual std::any visitPotenciacao(MattyParser::PotenciacaoContext *ctx);
+    virtual std::any visitMultiplicacaoOuDivisao(MattyParser::MultiplicacaoOuDivisaoContext *ctx);
+    virtual std::any visitLogaritmo(MattyParser::LogaritmoContext *ctx);
+    virtual std::any visitLeia(MattyParser::LeiaContext *ctx);
+    virtual std::any visitInteiro(MattyParser::InteiroContext *ctx);
+    virtual std::any visitId(MattyParser::IdContext *ctx);
+    virtual std::any visitFracao(MattyParser::FracaoContext *ctx);
+    virtual std::any visitEquacao(MattyParser::EquacaoContext *ctx);
+
 };
