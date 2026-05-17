@@ -1,48 +1,5 @@
 # Matty
 
-- [Reconhecimento](#reconhecimento)
-- [Definição](#definição)
-- [Estruturação](#estruturação)
-
----
-
-## Reconhecimento
-
-- [Texto Síntese](#texto-síntese)
-- [Tabela de Similares](#tabela-de-similares)
-- [Lista de Demandas](#lista-de-demandas)
-- [Tabela de Ferramentas](#tabela-de-ferramentas)
-
----
-
-### Texto síntese
-
-Olhando para como são feitas operações matemáticas, das mais simples até as mais complexas hoje em dia em linguagens de programação, nota-se uma variedade muito pequena de operações possíveis que são realizadas de forma nativa por esses softwares, levando a refletir sobre a importância da matemática para a programação, e das operações que a compõem que, ainda que simples, não tem uma composição nativa ou então amigável para o usuário da linguagem, levando a importação de bibliotecas para realização dessas operações. Portanto, foi proposto a criação da linguagem `Matty`, uma linguagem simples focada inteiramente em operações matemáticas simples já existentes nativamente em várias linguagens, com a adição de outras operações que, por mais que sejam simples, não contém uma implementação nativa por parte da linguagem, como é o caso de operações com frações, raízes, equações simples, regras de três simples e logaritmos. Com a criação desta linguagem, a resolução de problemas matemáticos se torna mais intuitiva, legível e fácil de se aplicar, sem necessidades ou dependências de bibliotecas e códigos externos importados, assim carregando recursos a mais e comprometendo o uso de memória na execução do programa. Por se tratar de um aditivo ao que já existe, Matty procura conter uma sintaxe usual e similar as linguagens mais utilizadas em 2026, a fim de aproximar os(as) programadores(as) para esta novidade da matemática.
-
-### Tabela de Similares
-
-| **Linguagem** | **Descrição** | **Diferenciais** |
-| :-------- | --------- | ------------ |
-| Julia | Linguagem moderna e eficiente focada na resolução de problemas matemáticos e científicos, unindo a facilidade do Python com a eficiência do C/C++ | - Soluções matemáticas propostas por Matty são feitas através de pacotes importados ou conjunto de operações primitivas |
-| Python | Linguagem robusta com vários auxiliares, podendo solucionar vários tipos de problemas relacionados a matemática e entre outras diversas áreas e subáreas | - Soluções matemáticas propostas por Matty são feitas através de pacotes importados ou conjunto de operações primitivas |
-
-### Lista de Demandas
-
-- Criação de um tipo primitivo `fraction` para realizar operações de soma, subtração, multiplicação e divisão com frações, juntamente com a sua sintaxe
-- Criação de sintaxe para representar operações de raízes, equações, "regras de três" e logaritmos
-- Criação de sintaxe para representar incógnitas em equações e "regras de três"
-- Mantimento de operações já existentes em linguagens de programação como condicionais, e entrada e saída de dados a fim de manter a base das linguagens de programação, assim tornando a linguagem flexível para diferentes soluções de problemas
-
-### Tabela de Ferramentas
-
-| **Ferramenta** | **Funcionalidade** |
-| :--------- | -------------- |
-| ANTLR | Elaboração da gramática em .g4 para operações existentes e novas propostas para em seguida gerar o lexer e o parser. |
-
----
-
-## Definição
-
 - [Matty](#matty)
   - [Reconhecimento](#reconhecimento)
     - [Texto síntese](#texto-síntese)
@@ -56,6 +13,42 @@ Olhando para como são feitas operações matemáticas, das mais simples até as
     - [Tabela de palavras-reservadas](#tabela-de-palavras-reservadas)
   - [Estruturação](#estruturação)
     - [Documento de ambiente de trabalho](#documento-de-ambiente-de-trabalho)
+    - [Diagrama de arquitetura](#diagrama-de-arquitetura)
+    - [Diagrama de diretórios](#diagrama-de-diretórios)
+    - [Diagrama de fluxo de trabalho](#diagrama-de-fluxo-de-trabalho)
+
+---
+
+## Reconhecimento
+
+### Texto síntese
+
+Olhando para como são feitas operações matemáticas, das mais simples até as mais complexas hoje em dia em linguagens de programação, nota-se uma variedade muito pequena de operações possíveis que são realizadas de forma nativa por esses softwares, levando a refletir sobre a importância da matemática para a programação, e das operações que a compõem que, ainda que simples, não tem uma composição nativa ou então amigável para o usuário da linguagem, levando a importação de bibliotecas para realização dessas operações. Portanto, foi proposto a criação da linguagem `Matty`, uma linguagem simples focada inteiramente em operações matemáticas simples já existentes nativamente em várias linguagens, com a adição de outras operações que, por mais que sejam simples, não contém uma implementação nativa por parte da linguagem, como é o caso de operações com frações, raízes, regras de três simples e logaritmos. Com a criação desta linguagem, a resolução de problemas matemáticos se torna mais intuitiva, legível e fácil de se aplicar, sem necessidades ou dependências de bibliotecas e códigos externos importados, assim carregando recursos a mais e comprometendo o uso de memória na execução do programa. Por se tratar de um aditivo ao que já existe, Matty procura conter uma sintaxe usual e similar as linguagens mais utilizadas em 2026, a fim de aproximar os(as) programadores(as) para esta novidade da matemática.
+
+### Tabela de Similares
+
+| **Linguagem** | **Descrição** | **Diferenciais** |
+| :-------- | --------- | ------------ |
+| Julia | Linguagem moderna e eficiente focada na resolução de problemas matemáticos e científicos, unindo a facilidade do Python com a eficiência do C/C++ | - Soluções matemáticas propostas por Matty são feitas através de pacotes importados ou conjunto de operações primitivas |
+| Python | Linguagem robusta com vários auxiliares, podendo solucionar vários tipos de problemas relacionados a matemática e entre outras diversas áreas e subáreas | - Soluções matemáticas propostas por Matty são feitas através de pacotes importados ou conjunto de operações primitivas |
+
+### Lista de Demandas
+
+- Criação de um tipo primitivo `fraction` para realizar operações de soma, subtração, multiplicação e divisão com frações, juntamente com a sua sintaxe
+- Criação de sintaxe para representar operações de raízes, "regras de três" e logaritmos
+- Criação de sintaxe para representar incógnitas em "regras de três"
+- Mantimento de operações já existentes em linguagens de programação como condicionais, e entrada e saída de dados a fim de manter a base das linguagens de programação, assim tornando a linguagem flexível para diferentes soluções de problemas
+
+### Tabela de Ferramentas
+
+| **Ferramenta** | **Funcionalidade** |
+| :--------- | -------------- |
+| ANTLR | Elaboração da gramática em .g4 para operações existentes e novas propostas para em seguida gerar o lexer e o parser. |
+| LLVM | Criação da representação intermediária da linguagem. |
+
+---
+
+## Definição
 
 ### Tabela de tipos
 
@@ -80,7 +73,6 @@ Olhando para como são feitas operações matemáticas, das mais simples até as
 | /// | Declaração de uma fração |
 | ^ | Potenciação de tipos numéricos |
 | \/ | Operação de raízes de tipos numéricos |
-| ´´ | Declaração de um bloco de equação |
 | (&#124; - &#124;) | Operação de "regra de três" diretamente proporcional com tipos numéricos |
 | (&#124; ~ &#124;) | Operação de "regra de três" inversamente proporcional com tipos numéricos |
 | logX_Y | Operação logarítmica com tipos numéricos |
@@ -99,7 +91,6 @@ Olhando para como são feitas operações matemáticas, das mais simples até as
 | **Estrutura da Linguagem** | **Descrição** | **Estrutura Exemplo** |
 | :------------------------- | ------------- | :-------------------- |
 | Declaração de variável | Armazenamento de valores da linguagem em um espaço variável de memória | `a = 2 + 2;` |
-| Declaração de equação | Declara uma equação que retorna um resultado numérico dada uma expressão completa com uma incógnita "x" | `a = ´2x = 9´;` |
 | Condicional | Declaração de condição para executar blocos de código dado um booleano | `if(x == y){...}else{...}` |
 | Definição de uma "regra de três" | Declara uma operação de regra de três dado 3 valores e uma incógnita "x" | a = (3 &#124; 100 - x &#124; 300); |
 | Definição de uma raíz | Declara uma operação de raíz dado um índice (caso não exista índice, utiliza-se 2) e um radicando | `a = \/8;` |
@@ -123,8 +114,6 @@ Olhando para como são feitas operações matemáticas, das mais simples até as
 
 ## Estruturação
 
-- [Documento de ambiente de trabalho](#documento-de-ambiente-de-trabalho)
-
 ### Documento de ambiente de trabalho
 
 | **Utilidade** | **Ferramenta** |
@@ -132,3 +121,36 @@ Olhando para como são feitas operações matemáticas, das mais simples até as
 | Ferramenta de versionamento e armazenamento de código | Github |
 | Ambiente de Desenvolvimento Integrado (IDE) | Visual Studio Code |
 | Sistema Operacional | Windows |
+
+### Diagrama de arquitetura
+
+<!-- A fazer -->
+
+### Diagrama de diretórios
+
+```md
+- 📂 linguagem-matty
+  - 📂 .vscode
+  - 📂 lang
+    - 📂 .antlr
+    - 📂 AST
+      - 📄 makeAST.cpp
+    - 📂 IR
+      - 📄 IRGen.hpp
+    - 📄 Matty.g4
+    - 📄 interps
+    - 📄 tokens
+    - 📄 Listeners
+    - 📄 Visitors
+    - 📄 Lexers
+    - 📄 Parsers
+  - 📂 lib
+  - 📄 .gitignore
+  - 📄 build.bat
+  - 📄 main.my
+  - 📄 README.md
+```
+
+### Diagrama de fluxo de trabalho
+
+<!-- A fazer -->
