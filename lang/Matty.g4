@@ -21,20 +21,20 @@ valor: expressao | booleano | STRING;
 
 expressao:
 	INT			# inteiro
+	| DECIMAL	# decimal
 	| FRACTION	# fracao
 	| 'read'	# leia
 	| ID		# id
-	| '´' (expressao | (expressao)? 'x') '=' (
+	| '(' (expressao | 'x') '|' (expressao | 'x') ('-' | '~') (
 		expressao
-		| (expressao)? 'x'
-	) '´'																	# equacao
-	| '(' expressao '|' expressao ('-' | '~') expressao '|' expressao ')'	# regraDeTres
-	| 'log' expressao ('_' expressao)?										# logaritmo
-	| '\\' (expressao)? '/' expressao										# raiz
-	| expressao '^' expressao												# potenciacao
-	| expressao ('*' | '/' | '//') expressao								# multiplicacaoOuDivisao
-	| expressao ('+' | '-') expressao										# somaOuSubtracao
-	| '(' expressao ')'														# prioridadeDeOperacoes;
+		| 'x'
+	) '|' (expressao | 'x') ')'					# regraDeTres
+	| 'log' expressao ('_' expressao)?			# logaritmo
+	| '\\' (expressao)? '/' expressao			# raiz
+	| expressao '^' expressao					# potenciacao
+	| expressao ('*' | '/' | '//') expressao	# multiplicacaoOuDivisao
+	| expressao ('+' | '-') expressao			# somaOuSubtracao
+	| '(' expressao ')'							# prioridadeDeOperacoes;
 
 booleano:
 	BOOLEANO					# bool
@@ -51,10 +51,10 @@ booleano:
 	| '(' booleano ')'			# prioridadeDeOperacoesLogicas;
 
 BOOLEANO: 'true' | 'false';
-FRACTION: ('0' ..'9')+ '///' ('0' ..'9')+;
+DECIMAL: ('0' ..'9')+ '.' ('0' ..'9')+;
+FRACTION: (INT | DECIMAL) '///' (INT | DECIMAL);
 ID: ('a' ..'z')+;
 INT: ('0' ..'9')+;
 STRING: '"' .*? '"';
-
-Comentario: '->>' .*? '\n' -> skip;
-Espaco: [ \t\n\r] -> skip;
+COMENTARIO: '->>' .*? '\n' -> skip;
+ESPACO: [ \t\n\r] -> skip;

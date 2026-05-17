@@ -19,8 +19,8 @@ public:
     T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31, T__31 = 32, 
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
-    T__44 = 45, T__45 = 46, BOOLEANO = 47, FRACTION = 48, ID = 49, INT = 50, 
-    STRING = 51, Comentario = 52, Espaco = 53
+    T__44 = 45, BOOLEANO = 46, DECIMAL = 47, FRACTION = 48, ID = 49, INT = 50, 
+    STRING = 51, COMENTARIO = 52, ESPACO = 53
   };
 
   enum {
@@ -335,6 +335,17 @@ public:
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
+  class  DecimalContext : public ExpressaoContext {
+  public:
+    DecimalContext(ExpressaoContext *ctx);
+
+    antlr4::tree::TerminalNode *DECIMAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
   class  RegraDeTresContext : public ExpressaoContext {
   public:
     RegraDeTresContext(ExpressaoContext *ctx);
@@ -352,18 +363,6 @@ public:
     FracaoContext(ExpressaoContext *ctx);
 
     antlr4::tree::TerminalNode *FRACTION();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  EquacaoContext : public ExpressaoContext {
-  public:
-    EquacaoContext(ExpressaoContext *ctx);
-
-    std::vector<ExpressaoContext *> expressao();
-    ExpressaoContext* expressao(size_t i);
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 

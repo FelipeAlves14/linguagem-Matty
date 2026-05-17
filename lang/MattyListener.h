@@ -74,14 +74,14 @@ public:
   virtual void enterId(MattyParser::IdContext *ctx) = 0;
   virtual void exitId(MattyParser::IdContext *ctx) = 0;
 
+  virtual void enterDecimal(MattyParser::DecimalContext *ctx) = 0;
+  virtual void exitDecimal(MattyParser::DecimalContext *ctx) = 0;
+
   virtual void enterRegraDeTres(MattyParser::RegraDeTresContext *ctx) = 0;
   virtual void exitRegraDeTres(MattyParser::RegraDeTresContext *ctx) = 0;
 
   virtual void enterFracao(MattyParser::FracaoContext *ctx) = 0;
   virtual void exitFracao(MattyParser::FracaoContext *ctx) = 0;
-
-  virtual void enterEquacao(MattyParser::EquacaoContext *ctx) = 0;
-  virtual void exitEquacao(MattyParser::EquacaoContext *ctx) = 0;
 
   virtual void enterMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx) = 0;
   virtual void exitMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx) = 0;

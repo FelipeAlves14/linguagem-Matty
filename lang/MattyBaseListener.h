@@ -76,14 +76,14 @@ public:
   virtual void enterId(MattyParser::IdContext * /*ctx*/) override { }
   virtual void exitId(MattyParser::IdContext * /*ctx*/) override { }
 
+  virtual void enterDecimal(MattyParser::DecimalContext * /*ctx*/) override { }
+  virtual void exitDecimal(MattyParser::DecimalContext * /*ctx*/) override { }
+
   virtual void enterRegraDeTres(MattyParser::RegraDeTresContext * /*ctx*/) override { }
   virtual void exitRegraDeTres(MattyParser::RegraDeTresContext * /*ctx*/) override { }
 
   virtual void enterFracao(MattyParser::FracaoContext * /*ctx*/) override { }
   virtual void exitFracao(MattyParser::FracaoContext * /*ctx*/) override { }
-
-  virtual void enterEquacao(MattyParser::EquacaoContext * /*ctx*/) override { }
-  virtual void exitEquacao(MattyParser::EquacaoContext * /*ctx*/) override { }
 
   virtual void enterMaiorOuIgual(MattyParser::MaiorOuIgualContext * /*ctx*/) override { }
   virtual void exitMaiorOuIgual(MattyParser::MaiorOuIgualContext * /*ctx*/) override { }

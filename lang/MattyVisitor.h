@@ -59,11 +59,11 @@ public:
 
     virtual std::any visitId(MattyParser::IdContext *context) = 0;
 
+    virtual std::any visitDecimal(MattyParser::DecimalContext *context) = 0;
+
     virtual std::any visitRegraDeTres(MattyParser::RegraDeTresContext *context) = 0;
 
     virtual std::any visitFracao(MattyParser::FracaoContext *context) = 0;
-
-    virtual std::any visitEquacao(MattyParser::EquacaoContext *context) = 0;
 
     virtual std::any visitMaiorOuIgual(MattyParser::MaiorOuIgualContext *context) = 0;
 

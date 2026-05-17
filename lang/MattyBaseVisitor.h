@@ -95,15 +95,15 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitDecimal(MattyParser::DecimalContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitRegraDeTres(MattyParser::RegraDeTresContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual std::any visitFracao(MattyParser::FracaoContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitEquacao(MattyParser::EquacaoContext *ctx) override {
     return visitChildren(ctx);
   }
 
