@@ -86,6 +86,15 @@ public:
         out.flush();
     }
 
+    llvm::Value *convertToDecimal(llvm::Value *val)
+    {
+        if (val->getType()->isIntegerTy())
+            return Builder->CreateSIToFP(val, Type::getDoubleTy(*Context));
+        return val;
+    }
+
+    std::string *getValueOrX();
+
     string getExecutable()
     {
         string irString;
@@ -324,46 +333,44 @@ public:
 
     virtual std::any visitExpressao(MattyParser::ExpressaoContext *ctx)
     {
-        if (auto *equacao = dynamic_cast<MattyParser::EquacaoContext *>(ctx))
-            visitEquacao(equacao);
+        if (auto *decimal = dynamic_cast<MattyParser::DecimalContext *>(ctx))
+            return visitDecimal(decimal);
 
         else if (auto *fracao = dynamic_cast<MattyParser::FracaoContext *>(ctx))
-            visitFracao(fracao);
+            return visitFracao(fracao);
 
         else if (auto *id = dynamic_cast<MattyParser::IdContext *>(ctx))
-            visitId(id);
+            return visitId(id);
 
         else if (auto *inteiro = dynamic_cast<MattyParser::InteiroContext *>(ctx))
-            visitInteiro(inteiro);
+            return visitInteiro(inteiro);
 
         else if (auto *leia = dynamic_cast<MattyParser::LeiaContext *>(ctx))
-            visitLeia(leia);
+            return visitLeia(leia);
 
         else if (auto *logaritmo = dynamic_cast<MattyParser::LogaritmoContext *>(ctx))
-            visitLogaritmo(logaritmo);
+            return visitLogaritmo(logaritmo);
 
         else if (auto *multiplicacaoOuDivisao = dynamic_cast<MattyParser::MultiplicacaoOuDivisaoContext *>(ctx))
-            visitMultiplicacaoOuDivisao(multiplicacaoOuDivisao);
+            return visitMultiplicacaoOuDivisao(multiplicacaoOuDivisao);
 
         else if (auto *potenciacao = dynamic_cast<MattyParser::PotenciacaoContext *>(ctx))
-            visitPotenciacao(potenciacao);
+            return visitPotenciacao(potenciacao);
 
         else if (auto *prioridade = dynamic_cast<MattyParser::PrioridadeDeOperacoesContext *>(ctx))
-            visitPrioridadeDeOperacoes(prioridade);
+            return visitPrioridadeDeOperacoes(prioridade);
 
         else if (auto *raiz = dynamic_cast<MattyParser::RaizContext *>(ctx))
-            visitRaiz(raiz);
+            return visitRaiz(raiz);
 
         else if (auto *regraDeTres = dynamic_cast<MattyParser::RegraDeTresContext *>(ctx))
-            visitRegraDeTres(regraDeTres);
+            return visitRegraDeTres(regraDeTres);
 
         else if (auto *somaOuSubtracao = dynamic_cast<MattyParser::SomaOuSubtracaoContext *>(ctx))
             return visitSomaOuSubtracao(somaOuSubtracao);
 
         else
             throw runtime_error("Expressão desconhecida");
-
-        return {};
     }
 
     virtual std::any visitBooleano(MattyParser::BooleanoContext *ctx)
@@ -406,33 +413,290 @@ public:
 
         else
             throw runtime_error("Valor booleano desconhecido");
-
-        return {};
     }
 
-    virtual std::any visitSomaOuSubtracao(MattyParser::SomaOuSubtracaoContext *ctx);
-    virtual std::any visitPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext *ctx);
-    virtual std::any visitOuLogico(MattyParser::OuLogicoContext *ctx);
-    virtual std::any visitOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext *ctx);
-    virtual std::any visitNaoLogico(MattyParser::NaoLogicoContext *ctx);
-    virtual std::any visitMenorOuIgual(MattyParser::MenorOuIgualContext *ctx);
-    virtual std::any visitMenor(MattyParser::MenorContext *ctx);
-    virtual std::any visitMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx);
-    virtual std::any visitMaior(MattyParser::MaiorContext *ctx);
-    virtual std::any visitIgual(MattyParser::IgualContext *ctx);
-    virtual std::any visitELogico(MattyParser::ELogicoContext *ctx);
-    virtual std::any visitDiferente(MattyParser::DiferenteContext *ctx);
-    virtual std::any visitBool(MattyParser::BoolContext *ctx);
-    virtual std::any visitRegraDeTres(MattyParser::RegraDeTresContext *ctx);
-    virtual std::any visitRaiz(MattyParser::RaizContext *ctx);
-    virtual std::any visitPrioridadeDeOperacoes(MattyParser::PrioridadeDeOperacoesContext *ctx);
-    virtual std::any visitPotenciacao(MattyParser::PotenciacaoContext *ctx);
-    virtual std::any visitMultiplicacaoOuDivisao(MattyParser::MultiplicacaoOuDivisaoContext *ctx);
-    virtual std::any visitLogaritmo(MattyParser::LogaritmoContext *ctx);
-    virtual std::any visitLeia(MattyParser::LeiaContext *ctx);
-    virtual std::any visitInteiro(MattyParser::InteiroContext *ctx);
-    virtual std::any visitId(MattyParser::IdContext *ctx);
-    virtual std::any visitFracao(MattyParser::FracaoContext *ctx);
-    virtual std::any visitEquacao(MattyParser::EquacaoContext *ctx);
+    virtual std::any visitSomaOuSubtracao(MattyParser::SomaOuSubtracaoContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
+        std::string op = ctx->children[1]->getText();
 
+        bool useFloatingPoint = left->getType()->isFloatingPointTy() || right->getType()->isFloatingPointTy();
+
+        if (op == "+")
+        {
+            if (useFloatingPoint)
+                return Builder->CreateFAdd(convertToDecimal(left), convertToDecimal(right));
+
+            if (left->getType()->isIntegerTy() && right->getType()->isIntegerTy())
+                return Builder->CreateAdd(left, right);
+
+            throw runtime_error("Tipos incompatíveis para adição");
+        }
+
+        if (op == "-")
+        {
+            if (useFloatingPoint)
+                return Builder->CreateFSub(convertToDecimal(left), convertToDecimal(right));
+
+            if (left->getType()->isIntegerTy() && right->getType()->isIntegerTy())
+                return Builder->CreateSub(left, right);
+
+            throw runtime_error("Tipos incompatíveis para subtração");
+        }
+
+        throw runtime_error("Operador desconhecido em soma/subtração");
+    }
+
+    virtual std::any visitPrioridadeDeOperacoesLogicas(MattyParser::PrioridadeDeOperacoesLogicasContext *ctx) override
+    {
+        return visitBooleano(ctx->booleano());
+    }
+
+    virtual std::any visitOuLogico(MattyParser::OuLogicoContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->booleano(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->booleano(1)));
+        return Builder->CreateOr(left, right);
+    }
+
+    virtual std::any visitOuExclusivoLogico(MattyParser::OuExclusivoLogicoContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->booleano(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->booleano(1)));
+        return Builder->CreateXor(left, right);
+    }
+
+    virtual std::any visitNaoLogico(MattyParser::NaoLogicoContext *ctx) override
+    {
+        Value *operand = std::any_cast<Value *>(visit(ctx->booleano()));
+        return Builder->CreateNot(operand);
+    }
+
+    virtual std::any visitMenorOuIgual(MattyParser::MenorOuIgualContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
+        return Builder->CreateICmpSLE(left, right);
+    }
+
+    virtual std::any visitMenor(MattyParser::MenorContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
+        return Builder->CreateICmpSLT(left, right);
+    }
+
+    virtual std::any visitMaiorOuIgual(MattyParser::MaiorOuIgualContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
+        return Builder->CreateICmpSGE(left, right);
+    }
+
+    virtual std::any visitMaior(MattyParser::MaiorContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
+        return Builder->CreateICmpSGT(left, right);
+    }
+
+    virtual std::any visitIgual(MattyParser::IgualContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
+        return Builder->CreateICmpEQ(left, right);
+    }
+
+    virtual std::any visitELogico(MattyParser::ELogicoContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->booleano(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->booleano(1)));
+        return Builder->CreateAnd(left, right);
+    }
+
+    virtual std::any visitDiferente(MattyParser::DiferenteContext *ctx) override
+    {
+        Value *left = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
+        return Builder->CreateICmpNE(left, right);
+    }
+
+    virtual std::any visitBool(MattyParser::BoolContext *ctx) override
+    {
+        return ctx->BOOLEANO()->getText() == "true" ? ConstantInt::getTrue(*Context) : ConstantInt::getFalse(*Context);
+    }
+
+    virtual std::any visitRegraDeTres(MattyParser::RegraDeTresContext *ctx) override
+    {
+        string text = ctx->getText();
+        if (count(text.begin(), text.end(), 'x') != 1)
+            throw runtime_error("Regra de três deve conter exatamente uma incógnita 'x'");
+        bool isDirectlyProportional = ctx->children[4]->getText() == "-";
+        string exp1 = ctx->children[1]->getText();
+        string exp2 = ctx->children[3]->getText();
+        string exp3 = ctx->children[5]->getText();
+        string exp4 = ctx->children[7]->getText();
+
+        if (exp1 == "x")
+        {
+            Value *b = any_cast<Value *>(visit(ctx->expressao(1)));
+            Value *c = any_cast<Value *>(visit(ctx->expressao(2)));
+            Value *d = any_cast<Value *>(visit(ctx->expressao(3)));
+            Value *numeratorValue = isDirectlyProportional ? c : d;
+            if (isDirectlyProportional)
+            {
+                Value *numerator = Builder->CreateMul(b, c);
+                return Builder->CreateFDiv(numerator, d);
+            }
+            else
+            {
+                Value *numerator = Builder->CreateMul(b, d);
+                return Builder->CreateFDiv(numerator, c);
+            }
+        }
+        else if (exp2 == "x")
+        {
+            Value *a = any_cast<Value *>(visit(ctx->expressao(0)));
+            Value *c = any_cast<Value *>(visit(ctx->expressao(2)));
+            Value *d = any_cast<Value *>(visit(ctx->expressao(3)));
+            bool useFloatingPoint = a->getType()->isFloatingPointTy() || c->getType()->isFloatingPointTy() || d->getType()->isFloatingPointTy();
+            if (isDirectlyProportional)
+            {
+                Value *numerator = Builder->CreateMul(a, d);
+                return Builder->CreateFDiv(numerator, c);
+            }
+            else
+            {
+                Value *numerator = Builder->CreateMul(a, c);
+                return Builder->CreateFDiv(numerator, d);
+            }
+        }
+        else if (exp3 == "x")
+        {
+            Value *a = any_cast<Value *>(visit(ctx->expressao(0)));
+            Value *b = any_cast<Value *>(visit(ctx->expressao(1)));
+            Value *d = any_cast<Value *>(visit(ctx->expressao(3)));
+            bool useFloatingPoint = a->getType()->isFloatingPointTy() || b->getType()->isFloatingPointTy() || d->getType()->isFloatingPointTy();
+            if (isDirectlyProportional)
+            {
+                Value *numerator = Builder->CreateMul(a, d);
+                return useFloatingPoint ? Builder->CreateFDiv(numerator, b) : Builder->CreateSDiv(numerator, b);
+            }
+            else
+            {
+                Value *numerator = Builder->CreateMul(b, d);
+                return useFloatingPoint ? Builder->CreateFDiv(numerator, a) : Builder->CreateSDiv(numerator, a);
+            }
+        }
+        else if (exp4 == "x")
+        {
+            Value *a = any_cast<Value *>(visit(ctx->expressao(0)));
+            Value *b = any_cast<Value *>(visit(ctx->expressao(1)));
+            Value *c = any_cast<Value *>(visit(ctx->expressao(2)));
+            bool useFloatingPoint = a->getType()->isFloatingPointTy() || b->getType()->isFloatingPointTy() || c->getType()->isFloatingPointTy();
+            if (isDirectlyProportional)
+            {
+                Value *numerator = Builder->CreateMul(b, c);
+                return useFloatingPoint ? Builder->CreateFDiv(numerator, a) : Builder->CreateSDiv(numerator, a);
+            }
+            else
+            {
+                Value *numerator = Builder->CreateMul(a, c);
+                return useFloatingPoint ? Builder->CreateFDiv(numerator, b) : Builder->CreateSDiv(numerator, b);
+            }
+        }
+    }
+
+    virtual std::any visitRaiz(MattyParser::RaizContext *ctx) override
+    {
+        Value *index = convertToDecimal(ctx->expressao(0) ? std::any_cast<Value *>(visit(ctx->expressao(0))) : ConstantInt::get(Type::getInt32Ty(*Context), 2));
+        Value *radicand = convertToDecimal(std::any_cast<Value *>(visit(ctx->expressao(1))));
+
+        Value *one = ConstantFP::get(Type::getDoubleTy(*Context), 1.0);
+        Value *exponent = Builder->CreateFDiv(one, index);
+        return Builder->CreateCall(Intrinsic::getDeclaration(Executable.get(), Intrinsic::pow, {Type::getDoubleTy(*Context)}), {radicand, exponent});
+    }
+
+    virtual std::any visitPrioridadeDeOperacoes(MattyParser::PrioridadeDeOperacoesContext *ctx) override
+    {
+        return visit(ctx->expressao());
+    }
+
+    virtual std::any visitPotenciacao(MattyParser::PotenciacaoContext *ctx) override
+    {
+        Value *base = convertToDecimal(any_cast<Value *>(visit(ctx->expressao(0))));
+        Value *exponent = convertToDecimal(any_cast<Value *>(visit(ctx->expressao(1))));
+        return Builder->CreateCall(Intrinsic::getDeclaration(Executable.get(), Intrinsic::pow, {Type::getDoubleTy(*Context)}), {base, exponent});
+    }
+
+    virtual std::any visitMultiplicacaoOuDivisao(MattyParser::MultiplicacaoOuDivisaoContext *ctx) override
+    {
+        string op = ctx->children[1]->getText();
+        Value *left = convertToDecimal(any_cast<Value *>(visit(ctx->expressao(0))));
+        Value *right = convertToDecimal(any_cast<Value *>(visit(ctx->expressao(1))));
+        bool useFloatingPoint = left->getType()->isFloatingPointTy() || right->getType()->isFloatingPointTy();
+        if (op == "*")
+        {
+            return useFloatingPoint ? Builder->CreateFMul(left, right) : Builder->CreateMul(left, right);
+        }
+        else if (op == "/")
+        {
+            return Builder->CreateFDiv(left, right);
+        }
+        else if (op == "//")
+        {
+            return Builder->CreateSDiv(Builder->CreateFPToSI(left, Type::getInt32Ty(*Context)), Builder->CreateFPToSI(right, Type::getInt32Ty(*Context)));
+        }
+        else
+        {
+            throw runtime_error("Operador desconhecido em multiplicação/divisão");
+        }
+    }
+
+    virtual std::any visitLogaritmo(MattyParser::LogaritmoContext *ctx) override
+    {
+        Value *value = convertToDecimal(any_cast<Value *>(visit(ctx->expressao(0))));
+        Value *base = ctx->expressao(1) ? convertToDecimal(any_cast<Value *>(visit(ctx->expressao(1)))) : ConstantFP::get(Type::getDoubleTy(*Context), 10.0);
+        Value *lnValue = Builder->CreateCall(Intrinsic::getDeclaration(Executable.get(), Intrinsic::log, {Type::getDoubleTy(*Context)}), {value});
+        Value *lnBase = Builder->CreateCall(Intrinsic::getDeclaration(Executable.get(), Intrinsic::log, {Type::getDoubleTy(*Context)}), {base});
+        return Builder->CreateFDiv(lnValue, lnBase);
+    }
+
+    virtual std::any visitLeia(MattyParser::LeiaContext *ctx) override
+    {
+        Type *varType = Type::getInt32Ty(*Context);
+        AllocaInst *alloca = Builder->CreateAlloca(varType, nullptr, "leia_tmp");
+        Builder->CreateCall(Input, {dScanf, Builder->CreateBitCast(alloca, PointerType::get(Type::getInt8Ty(*Context), 0))});
+        return Builder->CreateLoad(varType, alloca);
+    }
+
+    virtual std::any visitInteiro(MattyParser::InteiroContext *ctx) override
+    {
+        return ConstantInt::get(Type::getInt32Ty(*Context), stoi(ctx->getText()));
+    }
+
+    virtual std::any visitId(MattyParser::IdContext *ctx) override
+    {
+        string var = ctx->ID()->getText();
+        string funcName = currentFunction->getName().str();
+        if (symbolTable[funcName].find(var) == symbolTable[funcName].end())
+            throw runtime_error("Variável '" + var + "' não declarada");
+
+        return Builder->CreateLoad(symbolTable[funcName][var]->getAllocatedType(), symbolTable[funcName][var]);
+    };
+
+    virtual std::any visitFracao(MattyParser::FracaoContext *ctx) override
+    {
+        int num = stoi(ctx->FRACTION()->children[0]->getText());
+        int den = stoi(ctx->FRACTION()->children[2]->getText());
+        if (den == 0)
+            throw runtime_error("Divisão por zero em FRACTION");
+        return ConstantFP::get(Type::getDoubleTy(*Context), static_cast<double>(num) / static_cast<double>(den));
+    }
+
+    virtual std::any visitDecimal(MattyParser::DecimalContext *ctx) override
+    {
+        return ConstantFP::get(Type::getDoubleTy(*Context), stod(ctx->getText()));
+    }
 };
