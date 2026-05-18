@@ -19,10 +19,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitSeqComando(MattyParser::SeqComandoContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual std::any visitAtribuicao(MattyParser::AtribuicaoContext *ctx) override {
     return visitChildren(ctx);
   }

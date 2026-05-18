@@ -21,8 +21,6 @@ public:
    */
     virtual std::any visitPrograma(MattyParser::ProgramaContext *context) = 0;
 
-    virtual std::any visitSeqComando(MattyParser::SeqComandoContext *context) = 0;
-
     virtual std::any visitAtribuicao(MattyParser::AtribuicaoContext *context) = 0;
 
     virtual std::any visitLoop(MattyParser::LoopContext *context) = 0;

@@ -4,6 +4,7 @@
 #include "antlr4-runtime.h"
 #include "./lang/MattyLexer.h"
 #include "./lang/MattyParser.h"
+#include "./lang/IR/IRGen.hpp"
 
 using namespace antlr4;
 using namespace std;
@@ -34,6 +35,8 @@ int main(int argc, const char *argv[])
 
         cout << tree->toStringTree(&parser) << endl;
         cout << "Arquivo processado com sucesso." << endl;
+
+        IRGen irGen(tree);
 
         return 0;
     }

@@ -24,8 +24,8 @@ public:
   };
 
   enum {
-    RulePrograma = 0, RuleSeqComando = 1, RuleComando = 2, RuleValor = 3, 
-    RuleExpressao = 4, RuleBooleano = 5
+    RulePrograma = 0, RuleComando = 1, RuleValor = 2, RuleExpressao = 3, 
+    RuleBooleano = 4
   };
 
   explicit MattyParser(antlr4::TokenStream *input);
@@ -46,7 +46,6 @@ public:
 
 
   class ProgramaContext;
-  class SeqComandoContext;
   class ComandoContext;
   class ValorContext;
   class ExpressaoContext;
@@ -57,22 +56,6 @@ public:
     ProgramaContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *EOF();
-    std::vector<SeqComandoContext *> seqComando();
-    SeqComandoContext* seqComando(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  ProgramaContext* programa();
-
-  class  SeqComandoContext : public antlr4::ParserRuleContext {
-  public:
-    SeqComandoContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
     std::vector<ComandoContext *> comando();
     ComandoContext* comando(size_t i);
 
@@ -83,7 +66,7 @@ public:
    
   };
 
-  SeqComandoContext* seqComando();
+  ProgramaContext* programa();
 
   class  ComandoContext : public antlr4::ParserRuleContext {
   public:
@@ -183,7 +166,7 @@ public:
   public:
     BlocoContext(ComandoContext *ctx);
 
-    SeqComandoContext *seqComando();
+    ComandoContext *comando();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 

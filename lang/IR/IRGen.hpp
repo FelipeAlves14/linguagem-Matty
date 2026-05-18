@@ -105,13 +105,13 @@ public:
 
     virtual std::any visitPrograma(MattyParser::ProgramaContext *ctx) override
     {
-        for (MattyParser::SeqComandoContext *comando : ctx->seqComando())
-            visitSeqComando(comando);
+        for (MattyParser::ComandoContext *comando : ctx->comando())
+            visitComando(comando);
 
         return {};
     }
 
-    virtual std::any visitSeqComando(MattyParser::SeqComandoContext *ctx) override
+    virtual std::any visitComando(MattyParser::ComandoContext *ctx)
     {
         if (auto *atribuicao = dynamic_cast<MattyParser::AtribuicaoContext *>(ctx))
             return visitAtribuicao(atribuicao);
@@ -313,7 +313,7 @@ public:
 
     virtual std::any visitBloco(MattyParser::BlocoContext *ctx) override
     {
-        visitSeqComando(ctx->seqComando());
+        visitComando(ctx->comando());
         return {};
     }
 
@@ -324,7 +324,7 @@ public:
         else if (ctx->expressao())
             return visitExpressao(ctx->expressao());
         else if (ctx->STRING())
-            return Builder->CreateGlobalStringPtr(ctx->STRING()->getText().substr(1, ctx->STRING()->getText().size() - 2));
+            return static_cast<Value *>(Builder->CreateGlobalStringPtr(ctx->STRING()->getText().substr(1, ctx->STRING()->getText().size() - 2)));
         else
             throw runtime_error("Valor desconhecido");
 
@@ -524,7 +524,7 @@ public:
 
     virtual std::any visitBool(MattyParser::BoolContext *ctx) override
     {
-        return ctx->BOOLEANO()->getText() == "true" ? ConstantInt::getTrue(*Context) : ConstantInt::getFalse(*Context);
+        return static_cast<Value *>(ctx->BOOLEANO()->getText() == "true" ? ConstantInt::getTrue(*Context) : ConstantInt::getFalse(*Context));
     }
 
     virtual std::any visitRegraDeTres(MattyParser::RegraDeTresContext *ctx) override
@@ -589,7 +589,7 @@ public:
                 return useFloatingPoint ? Builder->CreateFDiv(numerator, a) : Builder->CreateSDiv(numerator, a);
             }
         }
-        else if (exp4 == "x")
+        else
         {
             Value *a = any_cast<Value *>(visit(ctx->expressao(0)));
             Value *b = any_cast<Value *>(visit(ctx->expressao(1)));
@@ -606,6 +606,8 @@ public:
                 return useFloatingPoint ? Builder->CreateFDiv(numerator, b) : Builder->CreateSDiv(numerator, b);
             }
         }
+
+        throw runtime_error("Regra de três inválida");
     }
 
     virtual std::any visitRaiz(MattyParser::RaizContext *ctx) override
@@ -673,7 +675,7 @@ public:
 
     virtual std::any visitInteiro(MattyParser::InteiroContext *ctx) override
     {
-        return ConstantInt::get(Type::getInt32Ty(*Context), stoi(ctx->getText()));
+        return static_cast<Value *>(ConstantInt::get(Type::getInt32Ty(*Context), stoi(ctx->getText())));
     }
 
     virtual std::any visitId(MattyParser::IdContext *ctx) override
@@ -683,7 +685,7 @@ public:
         if (symbolTable[funcName].find(var) == symbolTable[funcName].end())
             throw runtime_error("Variável '" + var + "' não declarada");
 
-        return Builder->CreateLoad(symbolTable[funcName][var]->getAllocatedType(), symbolTable[funcName][var]);
+        return static_cast<Value *>(Builder->CreateLoad(symbolTable[funcName][var]->getAllocatedType(), symbolTable[funcName][var]));
     };
 
     virtual std::any visitFracao(MattyParser::FracaoContext *ctx) override
@@ -692,11 +694,16 @@ public:
         int den = stoi(ctx->FRACTION()->children[2]->getText());
         if (den == 0)
             throw runtime_error("Divisão por zero em FRACTION");
-        return ConstantFP::get(Type::getDoubleTy(*Context), static_cast<double>(num) / static_cast<double>(den));
+        return static_cast<Value *>(ConstantFP::get(Type::getDoubleTy(*Context), static_cast<double>(num) / static_cast<double>(den)));
     }
 
     virtual std::any visitDecimal(MattyParser::DecimalContext *ctx) override
     {
-        return ConstantFP::get(Type::getDoubleTy(*Context), stod(ctx->getText()));
+        return static_cast<Value *>(ConstantFP::get(Type::getDoubleTy(*Context), stod(ctx->getText())));
+    }
+
+    virtual std::any visitSkip(MattyParser::SkipContext *ctx) override
+    {
+        return {};
     }
 };

@@ -1,8 +1,6 @@
 grammar Matty;
 
-programa: (seqComando)+ EOF; // sequência de comandos
-
-seqComando: comando ';' (comando ';')*;
+programa: (comando ';')+ EOF; // sequência de comandos
 
 comando:
 	ID (',' ID)* '=' valor (',' valor)*										# atribuicao
@@ -15,7 +13,7 @@ comando:
 	)* 'else' comando						# se
 	| 'while' '(' booleano ')' 'do' comando	# loop
 	| 'print' '(' (valor (',' valor)*)? ')'	# exiba
-	| '{' seqComando '}'					# bloco;
+	| '{' comando '}'						# bloco;
 
 valor: expressao | booleano | STRING;
 
@@ -53,7 +51,7 @@ booleano:
 BOOLEANO: 'true' | 'false';
 DECIMAL: ('0' ..'9')+ '.' ('0' ..'9')+;
 FRACTION: (INT | DECIMAL) '///' (INT | DECIMAL);
-ID: ('a' ..'z')+;
+ID: [a-zA-Z_][a-zA-Z_0-9]*;
 INT: ('0' ..'9')+;
 STRING: '"' .*? '"';
 COMENTARIO: '->>' .*? '\n' -> skip;

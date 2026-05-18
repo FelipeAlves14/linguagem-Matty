@@ -19,9 +19,6 @@ public:
   virtual void enterPrograma(MattyParser::ProgramaContext * /*ctx*/) override { }
   virtual void exitPrograma(MattyParser::ProgramaContext * /*ctx*/) override { }
 
-  virtual void enterSeqComando(MattyParser::SeqComandoContext * /*ctx*/) override { }
-  virtual void exitSeqComando(MattyParser::SeqComandoContext * /*ctx*/) override { }
-
   virtual void enterAtribuicao(MattyParser::AtribuicaoContext * /*ctx*/) override { }
   virtual void exitAtribuicao(MattyParser::AtribuicaoContext * /*ctx*/) override { }
 

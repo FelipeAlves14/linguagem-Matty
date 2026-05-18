@@ -17,9 +17,6 @@ public:
   virtual void enterPrograma(MattyParser::ProgramaContext *ctx) = 0;
   virtual void exitPrograma(MattyParser::ProgramaContext *ctx) = 0;
 
-  virtual void enterSeqComando(MattyParser::SeqComandoContext *ctx) = 0;
-  virtual void exitSeqComando(MattyParser::SeqComandoContext *ctx) = 0;
-
   virtual void enterAtribuicao(MattyParser::AtribuicaoContext *ctx) = 0;
   virtual void exitAtribuicao(MattyParser::AtribuicaoContext *ctx) = 0;
 
