@@ -24,11 +24,37 @@ if not exist "%LLVM_INCLUDE%\llvm\IR\LLVMContext.h" (
   echo Verifique se o LLVM foi instalado no vcpkg.
   exit /b 1
 )
+echo Configurando build com CMake (usando vcpkg)...
+where cmake >nul 2>&1
+if errorlevel 1 (
+  echo [ERRO] CMake nao encontrado no PATH. Instale CMake ou adicione ao PATH.
+  exit /b 1
+)
 
-  echo Compilando com ANTLR4 + LLVM...
-  cl /std:c++17 /EHsc /I . /I "%ANTLR_INCLUDE%" /I "%LLVM_INCLUDE%" .\lang\AST\makeAST.cpp .\lang\*.cpp /link /LIBPATH:"%VCPKG_LIB%" antlr4-runtime.lib LLVMCore.lib LLVMIRReader.lib LLVMCodeGen.lib LLVMTarget.lib LLVMAnalysis.lib LLVMSupport.lib
-if errorlevel 1 exit /b %errorlevel%
+if not exist build mkdir build
+pushd build
+cmake -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DCMAKE_BUILD_TYPE=Release ..
+if errorlevel 1 (
+  popd
+  exit /b %errorlevel%
+)
 
-echo Copiando runtime DLL...
-copy /Y "%VCPKG_ROOT%\installed\x64-windows\bin\antlr4-runtime.dll" . >nul
-exit /b %errorlevel%
+cmake --build . --config Release
+if errorlevel 1 (
+  popd
+  exit /b %errorlevel%
+)
+
+popd
+
+echo Copiando runtime DLL para build/bin...
+if exist "%VCPKG_ROOT%\installed\x64-windows\bin\antlr4-runtime.dll" (
+  copy /Y "%VCPKG_ROOT%\installed\x64-windows\bin\antlr4-runtime.dll" "build\bin\" >nul
+) else (
+  echo [AVISO] antlr4-runtime.dll nao encontrada em %VCPKG_ROOT%\installed\x64-windows\bin
+)
+
+call lang\AST\makeAST.cpp main.my
+call build\bin\makeAST.exe main.my
+
+exit /b 0

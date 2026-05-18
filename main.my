@@ -1,2 +1,4 @@
 ave = 1 + 1;
 maria = ave + ave;
+print(ave);
+print(maria);
