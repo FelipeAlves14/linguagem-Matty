@@ -36,10 +36,12 @@ private:
     Value *dScanf;
     Value *fPrint;
     Value *fScanf;
+    Value *fracPrint;
     FunctionCallee Input;
     FunctionCallee Print;
     Value *sPrint;
     Value *sScanf;
+    StructType *FractionType;
 
 public:
     IRGen(MattyParser::ProgramaContext *tree)
@@ -73,6 +75,11 @@ public:
         Input = Executable->getOrInsertFunction("scanf",
                                                 FunctionType::get(IntegerType::getInt32Ty(*Context), {PointerType::get(Type::getInt8Ty(*Context), 0)}, true));
 
+        FractionType = StructType::create(*Context, "Fraction");
+        FractionType->setBody({Type::getInt32Ty(*Context), Type::getInt32Ty(*Context)});
+
+        fracPrint = Builder->CreateGlobalStringPtr("%d///%d\n", "fracPrint");
+
         visitPrograma(tree);
 
         Builder->CreateRet(ConstantInt::get(Type::getInt32Ty(*Context), 0));
@@ -90,7 +97,91 @@ public:
     {
         if (val->getType()->isIntegerTy())
             return Builder->CreateSIToFP(val, Type::getDoubleTy(*Context));
+
+        Type *fracPtrTy = PointerType::getUnqual(FractionType);
+        if (val->getType() == fracPtrTy)
+        {
+            Value *numGEP = Builder->CreateStructGEP(FractionType, val, 0);
+            Value *denGEP = Builder->CreateStructGEP(FractionType, val, 1);
+            Value *num = Builder->CreateLoad(Type::getInt32Ty(*Context), numGEP);
+            Value *den = Builder->CreateLoad(Type::getInt32Ty(*Context), denGEP);
+            Value *numF = Builder->CreateSIToFP(num, Type::getDoubleTy(*Context));
+            Value *denF = Builder->CreateSIToFP(den, Type::getDoubleTy(*Context));
+            return Builder->CreateFDiv(numF, denF);
+        }
+
         return val;
+    }
+
+    bool isFraction(Value *v)
+    {
+        Type *fracPtrTy = PointerType::getUnqual(FractionType);
+        return v->getType() == fracPtrTy;
+    }
+
+    Value *makeFraction(Value *num, Value *den)
+    {
+        AllocaInst *alloca = Builder->CreateAlloca(FractionType, nullptr, "frac_tmp");
+
+        Type *i32 = Type::getInt32Ty(*Context);
+        AllocaInst *origNumAlloca = Builder->CreateAlloca(i32, nullptr, "orig_num");
+        AllocaInst *origDenAlloca = Builder->CreateAlloca(i32, nullptr, "orig_den");
+        Value *numI32 = Builder->CreateIntCast(num, i32, true);
+        Value *denI32 = Builder->CreateIntCast(den, i32, true);
+        Builder->CreateStore(numI32, origNumAlloca);
+        Builder->CreateStore(denI32, origDenAlloca);
+
+        AllocaInst *aAlloca = Builder->CreateAlloca(i32, nullptr, "gcd_a");
+        AllocaInst *bAlloca = Builder->CreateAlloca(i32, nullptr, "gcd_b");
+        Value *numLoaded = Builder->CreateLoad(i32, origNumAlloca);
+        Value *denLoaded = Builder->CreateLoad(i32, origDenAlloca);
+        Value *zero = ConstantInt::get(i32, 0);
+        Value *negNum = Builder->CreateNeg(numLoaded);
+        Value *negDen = Builder->CreateNeg(denLoaded);
+        Value *absNum = Builder->CreateSelect(Builder->CreateICmpSLT(numLoaded, zero), negNum, numLoaded);
+        Value *absDen = Builder->CreateSelect(Builder->CreateICmpSLT(denLoaded, zero), negDen, denLoaded);
+        Builder->CreateStore(absNum, aAlloca);
+        Builder->CreateStore(absDen, bAlloca);
+
+        Function *func = Builder->GetInsertBlock()->getParent();
+        BasicBlock *gcdCond = BasicBlock::Create(*Context, "gcd.cond", func);
+        BasicBlock *gcdBody = BasicBlock::Create(*Context, "gcd.body", func);
+        BasicBlock *gcdEnd = BasicBlock::Create(*Context, "gcd.end", func);
+
+        Builder->CreateBr(gcdCond);
+
+        Builder->SetInsertPoint(gcdCond);
+        Value *bVal = Builder->CreateLoad(i32, bAlloca);
+        Value *cmp = Builder->CreateICmpNE(bVal, ConstantInt::get(i32, 0));
+        Builder->CreateCondBr(cmp, gcdBody, gcdEnd);
+
+        Builder->SetInsertPoint(gcdBody);
+        Value *aVal = Builder->CreateLoad(i32, aAlloca);
+        bVal = Builder->CreateLoad(i32, bAlloca);
+        Value *rem = Builder->CreateSRem(aVal, bVal);
+        Builder->CreateStore(bVal, aAlloca);
+        Builder->CreateStore(rem, bAlloca);
+        Builder->CreateBr(gcdCond);
+
+        Builder->SetInsertPoint(gcdEnd);
+        Value *g = Builder->CreateLoad(i32, aAlloca);
+        Value *gNonZero = Builder->CreateSelect(Builder->CreateICmpEQ(g, ConstantInt::get(i32, 0)), ConstantInt::get(i32, 1), g);
+
+        Value *finalNum = Builder->CreateSDiv(Builder->CreateLoad(i32, origNumAlloca), gNonZero);
+        Value *finalDen = Builder->CreateSDiv(Builder->CreateLoad(i32, origDenAlloca), gNonZero);
+
+        Value *denNeg = Builder->CreateICmpSLT(finalDen, zero);
+        Value *negFinalNum = Builder->CreateNeg(finalNum);
+        Value *negFinalDen = Builder->CreateNeg(finalDen);
+        Value *storeNum = Builder->CreateSelect(denNeg, negFinalNum, finalNum);
+        Value *storeDen = Builder->CreateSelect(denNeg, negFinalDen, finalDen);
+
+        Value *numGEP = Builder->CreateStructGEP(FractionType, alloca, 0);
+        Value *denGEP = Builder->CreateStructGEP(FractionType, alloca, 1);
+        Builder->CreateStore(storeNum, numGEP);
+        Builder->CreateStore(storeDen, denGEP);
+
+        return alloca;
     }
 
     std::string *getValueOrX();
@@ -117,14 +208,16 @@ public:
             return visitAtribuicao(atribuicao);
         else if (auto *escolha = dynamic_cast<MattyParser::EscolhaContext *>(ctx))
             return visitEscolha(escolha);
+        else if (auto *loopFor = dynamic_cast<MattyParser::LoopForContext *>(ctx))
+            return visitLoopFor(loopFor);
         else if (auto *se = dynamic_cast<MattyParser::SeContext *>(ctx))
             return visitSe(se);
         else if (auto *exiba = dynamic_cast<MattyParser::ExibaContext *>(ctx))
             return visitExiba(exiba);
         else if (auto *repita = dynamic_cast<MattyParser::RepitaContext *>(ctx))
             return visitRepita(repita);
-        else if (auto *loop = dynamic_cast<MattyParser::LoopContext *>(ctx))
-            return visitLoop(loop);
+        else if (auto *loopWhile = dynamic_cast<MattyParser::LoopWhileContext *>(ctx))
+            return visitLoopWhile(loopWhile);
         else if (auto *bloco = dynamic_cast<MattyParser::BlocoContext *>(ctx))
             return visitBloco(bloco);
         else
@@ -200,33 +293,35 @@ public:
 
     virtual std::any visitSe(MattyParser::SeContext *ctx) override
     {
-        Value *cond = std::any_cast<Value *>(visit(ctx->booleano(0)));
         Function *func = Builder->GetInsertBlock()->getParent();
-        BasicBlock *elseBlock = BasicBlock::Create(*Context, "else", func);
-        BasicBlock *endBlock = BasicBlock::Create(*Context, "end", func);
+        BasicBlock *endBlock = BasicBlock::Create(*Context, "if.end", func);
+        BasicBlock *elseBlock = BasicBlock::Create(*Context, "if.else", func);
+        BasicBlock *currentCheckBlock = BasicBlock::Create(*Context, "if.check0", func);
 
-        Builder->CreateCondBr(cond, elseBlock, endBlock);
-        Builder->SetInsertPoint(elseBlock);
-        visit(ctx->comando(0));
+        Builder->CreateBr(currentCheckBlock);
 
-        for (size_t i = 1; i < ctx->booleano().size(); i++)
+        for (size_t i = 0; i < ctx->booleano().size(); i++)
         {
-            Value *elifCond = std::any_cast<Value *>(visit(ctx->booleano(i)));
-            BasicBlock *elifElseBlock = BasicBlock::Create(*Context, "elif_else" + to_string(i), func);
-            BasicBlock *elifEndBlock = BasicBlock::Create(*Context, "elif_end" + to_string(i), func);
+            Builder->SetInsertPoint(currentCheckBlock);
+            Value *cond = std::any_cast<Value *>(visit(ctx->booleano(i)));
+            BasicBlock *thenBlock = BasicBlock::Create(*Context, "if.then" + to_string(i), func);
+            BasicBlock *nextCheckBlock = (i + 1 == ctx->booleano().size())
+                                             ? elseBlock
+                                             : BasicBlock::Create(*Context, "if.check" + to_string(i + 1), func);
 
-            Builder->CreateCondBr(elifCond, elifElseBlock, elifEndBlock);
-            Builder->SetInsertPoint(elifElseBlock);
+            Builder->CreateCondBr(cond, thenBlock, nextCheckBlock);
+
+            Builder->SetInsertPoint(thenBlock);
             visit(ctx->comando(i));
             Builder->CreateBr(endBlock);
 
-            Builder->SetInsertPoint(elifEndBlock);
+            currentCheckBlock = nextCheckBlock;
         }
 
-        if (ctx->comando().size() > ctx->booleano().size())
-            visit(ctx->comando(ctx->comando().size() - 1));
-
+        Builder->SetInsertPoint(elseBlock);
+        visit(ctx->comando(ctx->comando().size() - 1));
         Builder->CreateBr(endBlock);
+
         Builder->SetInsertPoint(endBlock);
 
         return {};
@@ -236,13 +331,29 @@ public:
     {
         for (MattyParser::ValorContext *valCtx : ctx->valor())
         {
-            Value *val = std::any_cast<Value *>(visit(valCtx));
-            if (val->getType()->isIntegerTy())
-                Builder->CreateCall(Print, {val});
+            Value *val = std::any_cast<Value *>(visitValor(valCtx));
+            if (isFraction(val))
+            {
+                Value *numGEP = Builder->CreateStructGEP(FractionType, val, 0);
+                Value *denGEP = Builder->CreateStructGEP(FractionType, val, 1);
+                Value *num = Builder->CreateLoad(Type::getInt32Ty(*Context), numGEP);
+                Value *den = Builder->CreateLoad(Type::getInt32Ty(*Context), denGEP);
+                Builder->CreateCall(Print, {fracPrint, Builder->CreateIntCast(num, Type::getInt32Ty(*Context), true), Builder->CreateIntCast(den, Type::getInt32Ty(*Context), true)});
+                continue;
+            }
+            if (val->getType()->isIntegerTy(1))
+            {
+                Value *boolVal = Builder->CreateSelect(val, Builder->CreateGlobalStringPtr("true"), Builder->CreateGlobalStringPtr("false"));
+                Builder->CreateCall(Print, {sPrint, boolVal});
+            }
+            else if (val->getType()->isIntegerTy(8))
+                Builder->CreateCall(Print, {cPrint, Builder->CreateIntCast(val, Type::getInt32Ty(*Context), false)});
+            else if (val->getType()->isIntegerTy())
+                Builder->CreateCall(Print, {dPrint, val});
             else if (val->getType()->isFloatingPointTy())
-                Builder->CreateCall(Print, {val});
+                Builder->CreateCall(Print, {fPrint, convertToDecimal(val)});
             else if (val->getType()->isPointerTy())
-                Builder->CreateCall(Print, {val});
+                Builder->CreateCall(Print, {sPrint, val});
             else
                 throw runtime_error("Tipo de dado não suportado para exibição");
         }
@@ -288,7 +399,7 @@ public:
         return {};
     }
 
-    virtual std::any visitLoop(MattyParser::LoopContext *ctx) override
+    virtual std::any visitLoopWhile(MattyParser::LoopWhileContext *ctx) override
     {
         Function *func = Builder->GetInsertBlock()->getParent();
 
@@ -311,9 +422,43 @@ public:
         return {};
     }
 
+    virtual std::any visitLoopFor(MattyParser::LoopForContext *ctx) override
+    {
+        string varName = ctx->ID()->getText();
+        Value *startVal = std::any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *endVal = std::any_cast<Value *>(visit(ctx->expressao(1)));
+
+        Function *func = Builder->GetInsertBlock()->getParent();
+
+        BasicBlock *condBr = BasicBlock::Create(*Context, "for.cond", func);
+        BasicBlock *bodyBr = BasicBlock::Create(*Context, "for.body", func);
+        BasicBlock *endBr = BasicBlock::Create(*Context, "for.end", func);
+
+        AllocaInst *varAlloca = Builder->CreateAlloca(startVal->getType(), nullptr, varName);
+        Builder->CreateStore(startVal, varAlloca);
+        symbolTable[func->getName().str()][varName] = varAlloca;
+        Builder->CreateBr(condBr);
+
+        Builder->SetInsertPoint(condBr);
+        Value *curVal = Builder->CreateLoad(startVal->getType(), varAlloca);
+        Value *cmp = Builder->CreateICmpSLE(curVal, endVal);
+        Builder->CreateCondBr(cmp, bodyBr, endBr);
+
+        Builder->SetInsertPoint(bodyBr);
+        visit(ctx->comando());
+        Value *nextVal = Builder->CreateAdd(curVal, ConstantInt::get(startVal->getType(), 1));
+        Builder->CreateStore(nextVal, varAlloca);
+        Builder->CreateBr(condBr);
+
+        Builder->SetInsertPoint(endBr);
+
+        return {};
+    }
+
     virtual std::any visitBloco(MattyParser::BlocoContext *ctx) override
     {
-        visitComando(ctx->comando());
+        for (MattyParser::ComandoContext *comando : ctx->comando())
+            visitComando(comando);
         return {};
     }
 
@@ -421,7 +566,74 @@ public:
         Value *right = std::any_cast<Value *>(visit(ctx->expressao(1)));
         std::string op = ctx->children[1]->getText();
 
-        bool useFloatingPoint = left->getType()->isFloatingPointTy() || right->getType()->isFloatingPointTy();
+        if (isFraction(left) && isFraction(right))
+        {
+            Value *l_num_g = Builder->CreateStructGEP(FractionType, left, 0);
+            Value *l_den_g = Builder->CreateStructGEP(FractionType, left, 1);
+            Value *r_num_g = Builder->CreateStructGEP(FractionType, right, 0);
+            Value *r_den_g = Builder->CreateStructGEP(FractionType, right, 1);
+            Value *l_num = Builder->CreateLoad(Type::getInt32Ty(*Context), l_num_g);
+            Value *l_den = Builder->CreateLoad(Type::getInt32Ty(*Context), l_den_g);
+            Value *r_num = Builder->CreateLoad(Type::getInt32Ty(*Context), r_num_g);
+            Value *r_den = Builder->CreateLoad(Type::getInt32Ty(*Context), r_den_g);
+
+            if (op == "+")
+            {
+                Value *n1 = Builder->CreateMul(l_num, r_den);
+                Value *n2 = Builder->CreateMul(r_num, l_den);
+                Value *num = Builder->CreateAdd(n1, n2);
+                Value *den = Builder->CreateMul(l_den, r_den);
+                return makeFraction(num, den);
+            }
+            else if (op == "-")
+            {
+                Value *n1 = Builder->CreateMul(l_num, r_den);
+                Value *n2 = Builder->CreateMul(r_num, l_den);
+                Value *num = Builder->CreateSub(n1, n2);
+                Value *den = Builder->CreateMul(l_den, r_den);
+                return makeFraction(num, den);
+            }
+        }
+
+        if (isFraction(left) && right->getType()->isIntegerTy())
+        {
+            Value *l_num_g = Builder->CreateStructGEP(FractionType, left, 0);
+            Value *l_den_g = Builder->CreateStructGEP(FractionType, left, 1);
+            Value *l_num = Builder->CreateLoad(Type::getInt32Ty(*Context), l_num_g);
+            Value *l_den = Builder->CreateLoad(Type::getInt32Ty(*Context), l_den_g);
+            Value *r_num = Builder->CreateIntCast(right, Type::getInt32Ty(*Context), true);
+            if (op == "+")
+            {
+                Value *num = Builder->CreateAdd(l_num, Builder->CreateMul(r_num, l_den));
+                return makeFraction(num, l_den);
+            }
+            else if (op == "-")
+            {
+                Value *num = Builder->CreateSub(l_num, Builder->CreateMul(r_num, l_den));
+                return makeFraction(num, l_den);
+            }
+        }
+
+        if (left->getType()->isIntegerTy() && isFraction(right))
+        {
+            Value *r_num_g = Builder->CreateStructGEP(FractionType, right, 0);
+            Value *r_den_g = Builder->CreateStructGEP(FractionType, right, 1);
+            Value *r_num = Builder->CreateLoad(Type::getInt32Ty(*Context), r_num_g);
+            Value *r_den = Builder->CreateLoad(Type::getInt32Ty(*Context), r_den_g);
+            Value *l_num = Builder->CreateIntCast(left, Type::getInt32Ty(*Context), true);
+            if (op == "+")
+            {
+                Value *num = Builder->CreateAdd(Builder->CreateMul(l_num, r_den), r_num);
+                return makeFraction(num, r_den);
+            }
+            else if (op == "-")
+            {
+                Value *num = Builder->CreateSub(Builder->CreateMul(l_num, r_den), r_num);
+                return makeFraction(num, r_den);
+            }
+        }
+
+        bool useFloatingPoint = left->getType()->isFloatingPointTy() || right->getType()->isFloatingPointTy() || isFraction(left) || isFraction(right);
 
         if (op == "+")
         {
@@ -635,8 +847,62 @@ public:
     virtual std::any visitMultiplicacaoOuDivisao(MattyParser::MultiplicacaoOuDivisaoContext *ctx) override
     {
         string op = ctx->children[1]->getText();
-        Value *left = convertToDecimal(any_cast<Value *>(visit(ctx->expressao(0))));
-        Value *right = convertToDecimal(any_cast<Value *>(visit(ctx->expressao(1))));
+        Value *leftRaw = any_cast<Value *>(visit(ctx->expressao(0)));
+        Value *rightRaw = any_cast<Value *>(visit(ctx->expressao(1)));
+
+        if (isFraction(leftRaw) && isFraction(rightRaw))
+        {
+            Value *l_num_g = Builder->CreateStructGEP(FractionType, leftRaw, 0);
+            Value *l_den_g = Builder->CreateStructGEP(FractionType, leftRaw, 1);
+            Value *r_num_g = Builder->CreateStructGEP(FractionType, rightRaw, 0);
+            Value *r_den_g = Builder->CreateStructGEP(FractionType, rightRaw, 1);
+            Value *l_num = Builder->CreateLoad(Type::getInt32Ty(*Context), l_num_g);
+            Value *l_den = Builder->CreateLoad(Type::getInt32Ty(*Context), l_den_g);
+            Value *r_num = Builder->CreateLoad(Type::getInt32Ty(*Context), r_num_g);
+            Value *r_den = Builder->CreateLoad(Type::getInt32Ty(*Context), r_den_g);
+
+            if (op == "*")
+            {
+                Value *num = Builder->CreateMul(l_num, r_num);
+                Value *den = Builder->CreateMul(l_den, r_den);
+                return makeFraction(num, den);
+            }
+            else if (op == "/")
+            {
+                Value *num = Builder->CreateMul(l_num, r_den);
+                Value *den = Builder->CreateMul(l_den, r_num);
+                return makeFraction(num, den);
+            }
+        }
+
+        if (isFraction(leftRaw) && rightRaw->getType()->isIntegerTy())
+        {
+            Value *l_num_g = Builder->CreateStructGEP(FractionType, leftRaw, 0);
+            Value *l_den_g = Builder->CreateStructGEP(FractionType, leftRaw, 1);
+            Value *l_num = Builder->CreateLoad(Type::getInt32Ty(*Context), l_num_g);
+            Value *l_den = Builder->CreateLoad(Type::getInt32Ty(*Context), l_den_g);
+            Value *r_num = Builder->CreateIntCast(rightRaw, Type::getInt32Ty(*Context), true);
+            if (op == "*")
+                return makeFraction(Builder->CreateMul(l_num, r_num), l_den);
+            else if (op == "/")
+                return makeFraction(l_num, Builder->CreateMul(l_den, r_num));
+        }
+
+        if (leftRaw->getType()->isIntegerTy() && isFraction(rightRaw))
+        {
+            Value *r_num_g = Builder->CreateStructGEP(FractionType, rightRaw, 0);
+            Value *r_den_g = Builder->CreateStructGEP(FractionType, rightRaw, 1);
+            Value *r_num = Builder->CreateLoad(Type::getInt32Ty(*Context), r_num_g);
+            Value *r_den = Builder->CreateLoad(Type::getInt32Ty(*Context), r_den_g);
+            Value *l_num = Builder->CreateIntCast(leftRaw, Type::getInt32Ty(*Context), true);
+            if (op == "*")
+                return makeFraction(Builder->CreateMul(l_num, r_num), r_den);
+            else if (op == "/")
+                return makeFraction(Builder->CreateMul(l_num, r_den), r_num);
+        }
+
+        Value *left = convertToDecimal(leftRaw);
+        Value *right = convertToDecimal(rightRaw);
         bool useFloatingPoint = left->getType()->isFloatingPointTy() || right->getType()->isFloatingPointTy();
         if (op == "*")
         {
@@ -686,15 +952,22 @@ public:
             throw runtime_error("Variável '" + var + "' não declarada");
 
         return static_cast<Value *>(Builder->CreateLoad(symbolTable[funcName][var]->getAllocatedType(), symbolTable[funcName][var]));
-    };
+    }
 
     virtual std::any visitFracao(MattyParser::FracaoContext *ctx) override
     {
-        int num = stoi(ctx->FRACTION()->children[0]->getText());
-        int den = stoi(ctx->FRACTION()->children[2]->getText());
+        string text = ctx->FRACTION()->getText();
+        size_t separator = text.find("///");
+        if (separator == string::npos)
+            throw runtime_error("Fração inválida");
+
+        int num = stoi(text.substr(0, separator));
+        int den = stoi(text.substr(separator + 3));
         if (den == 0)
             throw runtime_error("Divisão por zero em FRACTION");
-        return static_cast<Value *>(ConstantFP::get(Type::getDoubleTy(*Context), static_cast<double>(num) / static_cast<double>(den)));
+        Value *numV = ConstantInt::get(Type::getInt32Ty(*Context), num);
+        Value *denV = ConstantInt::get(Type::getInt32Ty(*Context), den);
+        return static_cast<Value *>(makeFraction(numV, denV));
     }
 
     virtual std::any visitDecimal(MattyParser::DecimalContext *ctx) override

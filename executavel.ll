@@ -11,20 +11,17 @@ target triple = "x86_64-unknown-linux-gnu"
 @fScanf = private unnamed_addr constant [3 x i8] c"%f\00", align 1
 @cScanf = private unnamed_addr constant [3 x i8] c"%c\00", align 1
 @sScanf = private unnamed_addr constant [3 x i8] c"%s\00", align 1
+@fracPrint = private unnamed_addr constant [9 x i8] c"%d///%d\0A\00", align 1
 
 define i32 @main() {
 entrada:
+  %leia_tmp = alloca i32, align 4
+  %0 = call i32 (ptr, ...) @scanf(ptr @dScanf, ptr %leia_tmp)
+  %1 = load i32, ptr %leia_tmp, align 4
   %ave = alloca i32, align 4
-  store i32 2, ptr %ave, align 4
-  %0 = load i32, ptr %ave, align 4
-  %1 = load i32, ptr %ave, align 4
-  %2 = add i32 %0, %1
-  %maria = alloca i32, align 4
-  store i32 %2, ptr %maria, align 4
-  %3 = load i32, ptr %ave, align 4
-  %4 = call i32 (ptr, ...) @printf(i32 %3)
-  %5 = load i32, ptr %maria, align 4
-  %6 = call i32 (ptr, ...) @printf(i32 %5)
+  store i32 %1, ptr %ave, align 4
+  %2 = load i32, ptr %ave, align 4
+  %3 = call i32 (ptr, ...) @printf(ptr @dPrint, i32 %2)
   ret i32 0
 }
 

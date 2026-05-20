@@ -1,4 +1,2 @@
-ave = 1 + 1;
-maria = ave + ave;
+ave = read;
 print(ave);
-print(maria);
