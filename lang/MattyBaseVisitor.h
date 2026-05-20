@@ -23,7 +23,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitLoop(MattyParser::LoopContext *ctx) override {
+  virtual std::any visitLoopFor(MattyParser::LoopForContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -40,6 +40,10 @@ public:
   }
 
   virtual std::any visitSe(MattyParser::SeContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitLoopWhile(MattyParser::LoopWhileContext *ctx) override {
     return visitChildren(ctx);
   }
 

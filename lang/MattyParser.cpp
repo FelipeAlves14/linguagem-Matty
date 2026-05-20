@@ -57,96 +57,98 @@ void mattyParserInitialize() {
     },
     std::vector<std::string>{
       "", "';'", "','", "'='", "'for'", "'to'", "'at'", "'make'", "'times'", 
-      "'choose'", "'('", "'):'", "':'", "'_'", "'skip'", "'if'", "')'", 
-      "'elif'", "'else'", "'while'", "'do'", "'print'", "'{'", "'}'", "'read'", 
-      "'x'", "'|'", "'-'", "'~'", "'log'", "'\\'", "'/'", "'^'", "'*'", 
-      "'//'", "'+'", "'=='", "'<='", "'<'", "'>'", "'>='", "'!='", "'!'", 
-      "'and'", "'or'", "'xor'"
+      "'choose'", "'('", "'):'", "':'", "'break'", "'_'", "'skip'", "'if'", 
+      "')'", "'elif'", "'else'", "'while'", "'do'", "'print'", "'{'", "'}'", 
+      "'read'", "'x'", "'|'", "'-'", "'~'", "'log'", "'\\'", "'/'", "'^'", 
+      "'*'", "'//'", "'+'", "'=='", "'<='", "'<'", "'>'", "'>='", "'!='", 
+      "'!'", "'and'", "'or'", "'xor'"
     },
     std::vector<std::string>{
       "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
       "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
-      "", "", "", "", "", "", "", "", "", "", "", "", "BOOLEANO", "DECIMAL", 
+      "", "", "", "", "", "", "", "", "", "", "", "", "", "BOOLEANO", "DECIMAL", 
       "FRACTION", "ID", "INT", "STRING", "COMENTARIO", "ESPACO"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,53,225,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,1,0,1,0,4,0,14,
+  	4,1,54,232,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,1,0,1,0,4,0,14,
   	8,0,11,0,12,0,15,1,0,1,0,1,1,1,1,1,1,5,1,23,8,1,10,1,12,1,26,9,1,1,1,
   	1,1,1,1,1,1,5,1,32,8,1,10,1,12,1,35,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,58,8,1,10,1,
-  	12,1,61,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  	1,1,1,5,1,79,8,1,10,1,12,1,82,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  	1,1,1,1,1,1,1,1,1,1,1,1,5,1,99,8,1,10,1,12,1,102,9,1,3,1,104,8,1,1,1,
-  	1,1,1,1,1,1,1,1,3,1,111,8,1,1,2,1,2,1,2,3,2,116,8,2,1,3,1,3,1,3,1,3,1,
-  	3,1,3,1,3,1,3,1,3,3,3,127,8,3,1,3,1,3,1,3,3,3,132,8,3,1,3,1,3,1,3,3,3,
-  	137,8,3,1,3,1,3,1,3,3,3,142,8,3,1,3,1,3,1,3,1,3,1,3,3,3,149,8,3,1,3,1,
-  	3,3,3,153,8,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,161,8,3,1,3,1,3,1,3,1,3,1,3,
-  	1,3,1,3,1,3,1,3,5,3,172,8,3,10,3,12,3,175,9,3,1,4,1,4,1,4,1,4,1,4,1,4,
-  	1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,
-  	4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,209,8,4,1,4,1,4,1,4,1,4,1,4,1,4,
-  	1,4,1,4,1,4,5,4,220,8,4,10,4,12,4,223,9,4,1,4,0,2,6,8,5,0,2,4,6,8,0,3,
-  	1,0,27,28,2,0,31,31,33,34,2,0,27,27,35,35,264,0,13,1,0,0,0,2,110,1,0,
-  	0,0,4,115,1,0,0,0,6,160,1,0,0,0,8,208,1,0,0,0,10,11,3,2,1,0,11,12,5,1,
-  	0,0,12,14,1,0,0,0,13,10,1,0,0,0,14,15,1,0,0,0,15,13,1,0,0,0,15,16,1,0,
-  	0,0,16,17,1,0,0,0,17,18,5,0,0,1,18,1,1,0,0,0,19,24,5,49,0,0,20,21,5,2,
-  	0,0,21,23,5,49,0,0,22,20,1,0,0,0,23,26,1,0,0,0,24,22,1,0,0,0,24,25,1,
-  	0,0,0,25,27,1,0,0,0,26,24,1,0,0,0,27,28,5,3,0,0,28,33,3,4,2,0,29,30,5,
-  	2,0,0,30,32,3,4,2,0,31,29,1,0,0,0,32,35,1,0,0,0,33,31,1,0,0,0,33,34,1,
-  	0,0,0,34,111,1,0,0,0,35,33,1,0,0,0,36,37,5,4,0,0,37,38,5,49,0,0,38,39,
-  	5,5,0,0,39,40,3,6,3,0,40,41,5,6,0,0,41,42,3,6,3,0,42,43,3,2,1,0,43,111,
-  	1,0,0,0,44,45,5,7,0,0,45,46,3,6,3,0,46,47,5,8,0,0,47,48,3,2,1,0,48,111,
-  	1,0,0,0,49,50,5,9,0,0,50,51,5,10,0,0,51,52,3,6,3,0,52,59,5,11,0,0,53,
-  	54,3,6,3,0,54,55,5,12,0,0,55,56,3,2,1,0,56,58,1,0,0,0,57,53,1,0,0,0,58,
-  	61,1,0,0,0,59,57,1,0,0,0,59,60,1,0,0,0,60,62,1,0,0,0,61,59,1,0,0,0,62,
-  	63,5,13,0,0,63,64,5,12,0,0,64,65,3,2,1,0,65,111,1,0,0,0,66,111,5,14,0,
-  	0,67,68,5,15,0,0,68,69,5,10,0,0,69,70,3,8,4,0,70,71,5,16,0,0,71,80,3,
-  	2,1,0,72,73,5,17,0,0,73,74,5,10,0,0,74,75,3,8,4,0,75,76,5,16,0,0,76,77,
-  	3,2,1,0,77,79,1,0,0,0,78,72,1,0,0,0,79,82,1,0,0,0,80,78,1,0,0,0,80,81,
-  	1,0,0,0,81,83,1,0,0,0,82,80,1,0,0,0,83,84,5,18,0,0,84,85,3,2,1,0,85,111,
-  	1,0,0,0,86,87,5,19,0,0,87,88,5,10,0,0,88,89,3,8,4,0,89,90,5,16,0,0,90,
-  	91,5,20,0,0,91,92,3,2,1,0,92,111,1,0,0,0,93,94,5,21,0,0,94,103,5,10,0,
-  	0,95,100,3,4,2,0,96,97,5,2,0,0,97,99,3,4,2,0,98,96,1,0,0,0,99,102,1,0,
-  	0,0,100,98,1,0,0,0,100,101,1,0,0,0,101,104,1,0,0,0,102,100,1,0,0,0,103,
-  	95,1,0,0,0,103,104,1,0,0,0,104,105,1,0,0,0,105,111,5,16,0,0,106,107,5,
-  	22,0,0,107,108,3,2,1,0,108,109,5,23,0,0,109,111,1,0,0,0,110,19,1,0,0,
-  	0,110,36,1,0,0,0,110,44,1,0,0,0,110,49,1,0,0,0,110,66,1,0,0,0,110,67,
-  	1,0,0,0,110,86,1,0,0,0,110,93,1,0,0,0,110,106,1,0,0,0,111,3,1,0,0,0,112,
-  	116,3,6,3,0,113,116,3,8,4,0,114,116,5,51,0,0,115,112,1,0,0,0,115,113,
-  	1,0,0,0,115,114,1,0,0,0,116,5,1,0,0,0,117,118,6,3,-1,0,118,161,5,50,0,
-  	0,119,161,5,47,0,0,120,161,5,48,0,0,121,161,5,24,0,0,122,161,5,49,0,0,
-  	123,126,5,10,0,0,124,127,3,6,3,0,125,127,5,25,0,0,126,124,1,0,0,0,126,
-  	125,1,0,0,0,127,128,1,0,0,0,128,131,5,26,0,0,129,132,3,6,3,0,130,132,
-  	5,25,0,0,131,129,1,0,0,0,131,130,1,0,0,0,132,133,1,0,0,0,133,136,7,0,
-  	0,0,134,137,3,6,3,0,135,137,5,25,0,0,136,134,1,0,0,0,136,135,1,0,0,0,
-  	137,138,1,0,0,0,138,141,5,26,0,0,139,142,3,6,3,0,140,142,5,25,0,0,141,
-  	139,1,0,0,0,141,140,1,0,0,0,142,143,1,0,0,0,143,161,5,16,0,0,144,145,
-  	5,29,0,0,145,148,3,6,3,0,146,147,5,13,0,0,147,149,3,6,3,0,148,146,1,0,
-  	0,0,148,149,1,0,0,0,149,161,1,0,0,0,150,152,5,30,0,0,151,153,3,6,3,0,
-  	152,151,1,0,0,0,152,153,1,0,0,0,153,154,1,0,0,0,154,155,5,31,0,0,155,
-  	161,3,6,3,5,156,157,5,10,0,0,157,158,3,6,3,0,158,159,5,16,0,0,159,161,
-  	1,0,0,0,160,117,1,0,0,0,160,119,1,0,0,0,160,120,1,0,0,0,160,121,1,0,0,
-  	0,160,122,1,0,0,0,160,123,1,0,0,0,160,144,1,0,0,0,160,150,1,0,0,0,160,
-  	156,1,0,0,0,161,173,1,0,0,0,162,163,10,4,0,0,163,164,5,32,0,0,164,172,
-  	3,6,3,5,165,166,10,3,0,0,166,167,7,1,0,0,167,172,3,6,3,4,168,169,10,2,
-  	0,0,169,170,7,2,0,0,170,172,3,6,3,3,171,162,1,0,0,0,171,165,1,0,0,0,171,
-  	168,1,0,0,0,172,175,1,0,0,0,173,171,1,0,0,0,173,174,1,0,0,0,174,7,1,0,
-  	0,0,175,173,1,0,0,0,176,177,6,4,-1,0,177,209,5,46,0,0,178,179,3,6,3,0,
-  	179,180,5,36,0,0,180,181,3,6,3,0,181,209,1,0,0,0,182,183,3,6,3,0,183,
-  	184,5,37,0,0,184,185,3,6,3,0,185,209,1,0,0,0,186,187,3,6,3,0,187,188,
-  	5,38,0,0,188,189,3,6,3,0,189,209,1,0,0,0,190,191,3,6,3,0,191,192,5,39,
-  	0,0,192,193,3,6,3,0,193,209,1,0,0,0,194,195,3,6,3,0,195,196,5,40,0,0,
-  	196,197,3,6,3,0,197,209,1,0,0,0,198,199,3,6,3,0,199,200,5,41,0,0,200,
-  	201,3,6,3,0,201,209,1,0,0,0,202,203,5,42,0,0,203,209,3,8,4,5,204,205,
-  	5,10,0,0,205,206,3,8,4,0,206,207,5,16,0,0,207,209,1,0,0,0,208,176,1,0,
-  	0,0,208,178,1,0,0,0,208,182,1,0,0,0,208,186,1,0,0,0,208,190,1,0,0,0,208,
-  	194,1,0,0,0,208,198,1,0,0,0,208,202,1,0,0,0,208,204,1,0,0,0,209,221,1,
-  	0,0,0,210,211,10,4,0,0,211,212,5,43,0,0,212,220,3,8,4,5,213,214,10,3,
-  	0,0,214,215,5,44,0,0,215,220,3,8,4,4,216,217,10,2,0,0,217,218,5,45,0,
-  	0,218,220,3,8,4,3,219,210,1,0,0,0,219,213,1,0,0,0,219,216,1,0,0,0,220,
-  	223,1,0,0,0,221,219,1,0,0,0,221,222,1,0,0,0,222,9,1,0,0,0,223,221,1,0,
-  	0,0,21,15,24,33,59,80,100,103,110,115,126,131,136,141,148,152,160,171,
-  	173,208,219,221
+  	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,59,8,1,
+  	10,1,12,1,62,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+  	1,1,1,1,1,1,5,1,80,8,1,10,1,12,1,83,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+  	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,100,8,1,10,1,12,1,103,9,1,3,1,105,8,
+  	1,1,1,1,1,1,1,1,1,1,1,4,1,112,8,1,11,1,12,1,113,1,1,1,1,3,1,118,8,1,1,
+  	2,1,2,1,2,3,2,123,8,2,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,134,8,3,
+  	1,3,1,3,1,3,3,3,139,8,3,1,3,1,3,1,3,3,3,144,8,3,1,3,1,3,1,3,3,3,149,8,
+  	3,1,3,1,3,1,3,1,3,1,3,3,3,156,8,3,1,3,1,3,3,3,160,8,3,1,3,1,3,1,3,1,3,
+  	1,3,1,3,3,3,168,8,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,5,3,179,8,3,10,
+  	3,12,3,182,9,3,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,
+  	4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,
+  	1,4,3,4,216,8,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,5,4,227,8,4,10,4,
+  	12,4,230,9,4,1,4,0,2,6,8,5,0,2,4,6,8,0,3,1,0,28,29,2,0,32,32,34,35,2,
+  	0,28,28,36,36,272,0,13,1,0,0,0,2,117,1,0,0,0,4,122,1,0,0,0,6,167,1,0,
+  	0,0,8,215,1,0,0,0,10,11,3,2,1,0,11,12,5,1,0,0,12,14,1,0,0,0,13,10,1,0,
+  	0,0,14,15,1,0,0,0,15,13,1,0,0,0,15,16,1,0,0,0,16,17,1,0,0,0,17,18,5,0,
+  	0,1,18,1,1,0,0,0,19,24,5,50,0,0,20,21,5,2,0,0,21,23,5,50,0,0,22,20,1,
+  	0,0,0,23,26,1,0,0,0,24,22,1,0,0,0,24,25,1,0,0,0,25,27,1,0,0,0,26,24,1,
+  	0,0,0,27,28,5,3,0,0,28,33,3,4,2,0,29,30,5,2,0,0,30,32,3,4,2,0,31,29,1,
+  	0,0,0,32,35,1,0,0,0,33,31,1,0,0,0,33,34,1,0,0,0,34,118,1,0,0,0,35,33,
+  	1,0,0,0,36,37,5,4,0,0,37,38,5,50,0,0,38,39,5,5,0,0,39,40,3,6,3,0,40,41,
+  	5,6,0,0,41,42,3,6,3,0,42,43,3,2,1,0,43,118,1,0,0,0,44,45,5,7,0,0,45,46,
+  	3,6,3,0,46,47,5,8,0,0,47,48,3,2,1,0,48,118,1,0,0,0,49,50,5,9,0,0,50,51,
+  	5,10,0,0,51,52,3,6,3,0,52,60,5,11,0,0,53,54,3,6,3,0,54,55,5,12,0,0,55,
+  	56,3,2,1,0,56,57,5,13,0,0,57,59,1,0,0,0,58,53,1,0,0,0,59,62,1,0,0,0,60,
+  	58,1,0,0,0,60,61,1,0,0,0,61,63,1,0,0,0,62,60,1,0,0,0,63,64,5,14,0,0,64,
+  	65,5,12,0,0,65,66,3,2,1,0,66,118,1,0,0,0,67,118,5,15,0,0,68,69,5,16,0,
+  	0,69,70,5,10,0,0,70,71,3,8,4,0,71,72,5,17,0,0,72,81,3,2,1,0,73,74,5,18,
+  	0,0,74,75,5,10,0,0,75,76,3,8,4,0,76,77,5,17,0,0,77,78,3,2,1,0,78,80,1,
+  	0,0,0,79,73,1,0,0,0,80,83,1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,84,1,
+  	0,0,0,83,81,1,0,0,0,84,85,5,19,0,0,85,86,3,2,1,0,86,118,1,0,0,0,87,88,
+  	5,20,0,0,88,89,5,10,0,0,89,90,3,8,4,0,90,91,5,17,0,0,91,92,5,21,0,0,92,
+  	93,3,2,1,0,93,118,1,0,0,0,94,95,5,22,0,0,95,104,5,10,0,0,96,101,3,4,2,
+  	0,97,98,5,2,0,0,98,100,3,4,2,0,99,97,1,0,0,0,100,103,1,0,0,0,101,99,1,
+  	0,0,0,101,102,1,0,0,0,102,105,1,0,0,0,103,101,1,0,0,0,104,96,1,0,0,0,
+  	104,105,1,0,0,0,105,106,1,0,0,0,106,118,5,17,0,0,107,111,5,23,0,0,108,
+  	109,3,2,1,0,109,110,5,1,0,0,110,112,1,0,0,0,111,108,1,0,0,0,112,113,1,
+  	0,0,0,113,111,1,0,0,0,113,114,1,0,0,0,114,115,1,0,0,0,115,116,5,24,0,
+  	0,116,118,1,0,0,0,117,19,1,0,0,0,117,36,1,0,0,0,117,44,1,0,0,0,117,49,
+  	1,0,0,0,117,67,1,0,0,0,117,68,1,0,0,0,117,87,1,0,0,0,117,94,1,0,0,0,117,
+  	107,1,0,0,0,118,3,1,0,0,0,119,123,3,6,3,0,120,123,3,8,4,0,121,123,5,52,
+  	0,0,122,119,1,0,0,0,122,120,1,0,0,0,122,121,1,0,0,0,123,5,1,0,0,0,124,
+  	125,6,3,-1,0,125,168,5,51,0,0,126,168,5,48,0,0,127,168,5,49,0,0,128,168,
+  	5,25,0,0,129,168,5,50,0,0,130,133,5,10,0,0,131,134,3,6,3,0,132,134,5,
+  	26,0,0,133,131,1,0,0,0,133,132,1,0,0,0,134,135,1,0,0,0,135,138,5,27,0,
+  	0,136,139,3,6,3,0,137,139,5,26,0,0,138,136,1,0,0,0,138,137,1,0,0,0,139,
+  	140,1,0,0,0,140,143,7,0,0,0,141,144,3,6,3,0,142,144,5,26,0,0,143,141,
+  	1,0,0,0,143,142,1,0,0,0,144,145,1,0,0,0,145,148,5,27,0,0,146,149,3,6,
+  	3,0,147,149,5,26,0,0,148,146,1,0,0,0,148,147,1,0,0,0,149,150,1,0,0,0,
+  	150,168,5,17,0,0,151,152,5,30,0,0,152,155,3,6,3,0,153,154,5,14,0,0,154,
+  	156,3,6,3,0,155,153,1,0,0,0,155,156,1,0,0,0,156,168,1,0,0,0,157,159,5,
+  	31,0,0,158,160,3,6,3,0,159,158,1,0,0,0,159,160,1,0,0,0,160,161,1,0,0,
+  	0,161,162,5,32,0,0,162,168,3,6,3,5,163,164,5,10,0,0,164,165,3,6,3,0,165,
+  	166,5,17,0,0,166,168,1,0,0,0,167,124,1,0,0,0,167,126,1,0,0,0,167,127,
+  	1,0,0,0,167,128,1,0,0,0,167,129,1,0,0,0,167,130,1,0,0,0,167,151,1,0,0,
+  	0,167,157,1,0,0,0,167,163,1,0,0,0,168,180,1,0,0,0,169,170,10,4,0,0,170,
+  	171,5,33,0,0,171,179,3,6,3,5,172,173,10,3,0,0,173,174,7,1,0,0,174,179,
+  	3,6,3,4,175,176,10,2,0,0,176,177,7,2,0,0,177,179,3,6,3,3,178,169,1,0,
+  	0,0,178,172,1,0,0,0,178,175,1,0,0,0,179,182,1,0,0,0,180,178,1,0,0,0,180,
+  	181,1,0,0,0,181,7,1,0,0,0,182,180,1,0,0,0,183,184,6,4,-1,0,184,216,5,
+  	47,0,0,185,186,3,6,3,0,186,187,5,37,0,0,187,188,3,6,3,0,188,216,1,0,0,
+  	0,189,190,3,6,3,0,190,191,5,38,0,0,191,192,3,6,3,0,192,216,1,0,0,0,193,
+  	194,3,6,3,0,194,195,5,39,0,0,195,196,3,6,3,0,196,216,1,0,0,0,197,198,
+  	3,6,3,0,198,199,5,40,0,0,199,200,3,6,3,0,200,216,1,0,0,0,201,202,3,6,
+  	3,0,202,203,5,41,0,0,203,204,3,6,3,0,204,216,1,0,0,0,205,206,3,6,3,0,
+  	206,207,5,42,0,0,207,208,3,6,3,0,208,216,1,0,0,0,209,210,5,43,0,0,210,
+  	216,3,8,4,5,211,212,5,10,0,0,212,213,3,8,4,0,213,214,5,17,0,0,214,216,
+  	1,0,0,0,215,183,1,0,0,0,215,185,1,0,0,0,215,189,1,0,0,0,215,193,1,0,0,
+  	0,215,197,1,0,0,0,215,201,1,0,0,0,215,205,1,0,0,0,215,209,1,0,0,0,215,
+  	211,1,0,0,0,216,228,1,0,0,0,217,218,10,4,0,0,218,219,5,44,0,0,219,227,
+  	3,8,4,5,220,221,10,3,0,0,221,222,5,45,0,0,222,227,3,8,4,4,223,224,10,
+  	2,0,0,224,225,5,46,0,0,225,227,3,8,4,3,226,217,1,0,0,0,226,220,1,0,0,
+  	0,226,223,1,0,0,0,227,230,1,0,0,0,228,226,1,0,0,0,228,229,1,0,0,0,229,
+  	9,1,0,0,0,230,228,1,0,0,0,22,15,24,33,60,81,101,104,113,117,122,133,138,
+  	143,148,155,159,167,178,180,215,226,228
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -264,7 +266,7 @@ MattyParser::ProgramaContext* MattyParser::programa() {
       _errHandler->sync(this);
       _la = _input->LA(1);
     } while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 562949960286864) != 0));
+      ((1ULL << _la) & 1125899920573072) != 0));
     setState(17);
     match(MattyParser::EOF);
    
@@ -433,6 +435,35 @@ std::any MattyParser::ExibaContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
+//----------------- LoopWhileContext ------------------------------------------------------------------
+
+MattyParser::BooleanoContext* MattyParser::LoopWhileContext::booleano() {
+  return getRuleContext<MattyParser::BooleanoContext>(0);
+}
+
+MattyParser::ComandoContext* MattyParser::LoopWhileContext::comando() {
+  return getRuleContext<MattyParser::ComandoContext>(0);
+}
+
+MattyParser::LoopWhileContext::LoopWhileContext(ComandoContext *ctx) { copyFrom(ctx); }
+
+void MattyParser::LoopWhileContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterLoopWhile(this);
+}
+void MattyParser::LoopWhileContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitLoopWhile(this);
+}
+
+std::any MattyParser::LoopWhileContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
+    return parserVisitor->visitLoopWhile(this);
+  else
+    return visitor->visitChildren(this);
+}
 //----------------- RepitaContext ------------------------------------------------------------------
 
 MattyParser::ExpressaoContext* MattyParser::RepitaContext::expressao() {
@@ -462,51 +493,14 @@ std::any MattyParser::RepitaContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
-//----------------- LoopContext ------------------------------------------------------------------
-
-tree::TerminalNode* MattyParser::LoopContext::ID() {
-  return getToken(MattyParser::ID, 0);
-}
-
-std::vector<MattyParser::ExpressaoContext *> MattyParser::LoopContext::expressao() {
-  return getRuleContexts<MattyParser::ExpressaoContext>();
-}
-
-MattyParser::ExpressaoContext* MattyParser::LoopContext::expressao(size_t i) {
-  return getRuleContext<MattyParser::ExpressaoContext>(i);
-}
-
-MattyParser::ComandoContext* MattyParser::LoopContext::comando() {
-  return getRuleContext<MattyParser::ComandoContext>(0);
-}
-
-MattyParser::BooleanoContext* MattyParser::LoopContext::booleano() {
-  return getRuleContext<MattyParser::BooleanoContext>(0);
-}
-
-MattyParser::LoopContext::LoopContext(ComandoContext *ctx) { copyFrom(ctx); }
-
-void MattyParser::LoopContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterLoop(this);
-}
-void MattyParser::LoopContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<MattyListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitLoop(this);
-}
-
-std::any MattyParser::LoopContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
-    return parserVisitor->visitLoop(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- BlocoContext ------------------------------------------------------------------
 
-MattyParser::ComandoContext* MattyParser::BlocoContext::comando() {
-  return getRuleContext<MattyParser::ComandoContext>(0);
+std::vector<MattyParser::ComandoContext *> MattyParser::BlocoContext::comando() {
+  return getRuleContexts<MattyParser::ComandoContext>();
+}
+
+MattyParser::ComandoContext* MattyParser::BlocoContext::comando(size_t i) {
+  return getRuleContext<MattyParser::ComandoContext>(i);
 }
 
 MattyParser::BlocoContext::BlocoContext(ComandoContext *ctx) { copyFrom(ctx); }
@@ -549,6 +543,43 @@ std::any MattyParser::SkipContext::accept(tree::ParseTreeVisitor *visitor) {
   else
     return visitor->visitChildren(this);
 }
+//----------------- LoopForContext ------------------------------------------------------------------
+
+tree::TerminalNode* MattyParser::LoopForContext::ID() {
+  return getToken(MattyParser::ID, 0);
+}
+
+std::vector<MattyParser::ExpressaoContext *> MattyParser::LoopForContext::expressao() {
+  return getRuleContexts<MattyParser::ExpressaoContext>();
+}
+
+MattyParser::ExpressaoContext* MattyParser::LoopForContext::expressao(size_t i) {
+  return getRuleContext<MattyParser::ExpressaoContext>(i);
+}
+
+MattyParser::ComandoContext* MattyParser::LoopForContext::comando() {
+  return getRuleContext<MattyParser::ComandoContext>(0);
+}
+
+MattyParser::LoopForContext::LoopForContext(ComandoContext *ctx) { copyFrom(ctx); }
+
+void MattyParser::LoopForContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterLoopFor(this);
+}
+void MattyParser::LoopForContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<MattyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitLoopFor(this);
+}
+
+std::any MattyParser::LoopForContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MattyVisitor*>(visitor))
+    return parserVisitor->visitLoopFor(this);
+  else
+    return visitor->visitChildren(this);
+}
 MattyParser::ComandoContext* MattyParser::comando() {
   ComandoContext *_localctx = _tracker.createInstance<ComandoContext>(_ctx, getState());
   enterRule(_localctx, 2, MattyParser::RuleComando);
@@ -562,7 +593,7 @@ MattyParser::ComandoContext* MattyParser::comando() {
     exitRule();
   });
   try {
-    setState(110);
+    setState(117);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case MattyParser::ID: {
@@ -602,7 +633,7 @@ MattyParser::ComandoContext* MattyParser::comando() {
       }
 
       case MattyParser::T__3: {
-        _localctx = _tracker.createInstance<MattyParser::LoopContext>(_localctx);
+        _localctx = _tracker.createInstance<MattyParser::LoopForContext>(_localctx);
         enterOuterAlt(_localctx, 2);
         setState(36);
         match(MattyParser::T__3);
@@ -646,136 +677,149 @@ MattyParser::ComandoContext* MattyParser::comando() {
         expressao(0);
         setState(52);
         match(MattyParser::T__10);
-        setState(59);
+        setState(60);
         _errHandler->sync(this);
         _la = _input->LA(1);
         while ((((_la & ~ 0x3fULL) == 0) &&
-          ((1ULL << _la) & 2111063952720896) != 0)) {
+          ((1ULL << _la) & 4222127905440768) != 0)) {
           setState(53);
           expressao(0);
           setState(54);
           match(MattyParser::T__11);
           setState(55);
           comando();
-          setState(61);
+          setState(56);
+          match(MattyParser::T__12);
+          setState(62);
           _errHandler->sync(this);
           _la = _input->LA(1);
         }
-        setState(62);
-        match(MattyParser::T__12);
         setState(63);
-        match(MattyParser::T__11);
-        setState(64);
-        comando();
-        break;
-      }
-
-      case MattyParser::T__13: {
-        _localctx = _tracker.createInstance<MattyParser::SkipContext>(_localctx);
-        enterOuterAlt(_localctx, 5);
-        setState(66);
         match(MattyParser::T__13);
+        setState(64);
+        match(MattyParser::T__11);
+        setState(65);
+        comando();
         break;
       }
 
       case MattyParser::T__14: {
-        _localctx = _tracker.createInstance<MattyParser::SeContext>(_localctx);
-        enterOuterAlt(_localctx, 6);
+        _localctx = _tracker.createInstance<MattyParser::SkipContext>(_localctx);
+        enterOuterAlt(_localctx, 5);
         setState(67);
         match(MattyParser::T__14);
+        break;
+      }
+
+      case MattyParser::T__15: {
+        _localctx = _tracker.createInstance<MattyParser::SeContext>(_localctx);
+        enterOuterAlt(_localctx, 6);
         setState(68);
-        match(MattyParser::T__9);
+        match(MattyParser::T__15);
         setState(69);
-        booleano(0);
+        match(MattyParser::T__9);
         setState(70);
-        match(MattyParser::T__15);
-        setState(71);
-        comando();
-        setState(80);
-        _errHandler->sync(this);
-        _la = _input->LA(1);
-        while (_la == MattyParser::T__16) {
-          setState(72);
-          match(MattyParser::T__16);
-          setState(73);
-          match(MattyParser::T__9);
-          setState(74);
-          booleano(0);
-          setState(75);
-          match(MattyParser::T__15);
-          setState(76);
-          comando();
-          setState(82);
-          _errHandler->sync(this);
-          _la = _input->LA(1);
-        }
-        setState(83);
-        match(MattyParser::T__17);
-        setState(84);
-        comando();
-        break;
-      }
-
-      case MattyParser::T__18: {
-        _localctx = _tracker.createInstance<MattyParser::LoopContext>(_localctx);
-        enterOuterAlt(_localctx, 7);
-        setState(86);
-        match(MattyParser::T__18);
-        setState(87);
-        match(MattyParser::T__9);
-        setState(88);
         booleano(0);
-        setState(89);
-        match(MattyParser::T__15);
-        setState(90);
-        match(MattyParser::T__19);
-        setState(91);
+        setState(71);
+        match(MattyParser::T__16);
+        setState(72);
+        comando();
+        setState(81);
+        _errHandler->sync(this);
+        _la = _input->LA(1);
+        while (_la == MattyParser::T__17) {
+          setState(73);
+          match(MattyParser::T__17);
+          setState(74);
+          match(MattyParser::T__9);
+          setState(75);
+          booleano(0);
+          setState(76);
+          match(MattyParser::T__16);
+          setState(77);
+          comando();
+          setState(83);
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+        }
+        setState(84);
+        match(MattyParser::T__18);
+        setState(85);
         comando();
         break;
       }
 
-      case MattyParser::T__20: {
-        _localctx = _tracker.createInstance<MattyParser::ExibaContext>(_localctx);
-        enterOuterAlt(_localctx, 8);
-        setState(93);
-        match(MattyParser::T__20);
-        setState(94);
+      case MattyParser::T__19: {
+        _localctx = _tracker.createInstance<MattyParser::LoopWhileContext>(_localctx);
+        enterOuterAlt(_localctx, 7);
+        setState(87);
+        match(MattyParser::T__19);
+        setState(88);
         match(MattyParser::T__9);
-        setState(103);
-        _errHandler->sync(this);
-
-        _la = _input->LA(1);
-        if ((((_la & ~ 0x3fULL) == 0) &&
-          ((1ULL << _la) & 4437630557094912) != 0)) {
-          setState(95);
-          valor();
-          setState(100);
-          _errHandler->sync(this);
-          _la = _input->LA(1);
-          while (_la == MattyParser::T__1) {
-            setState(96);
-            match(MattyParser::T__1);
-            setState(97);
-            valor();
-            setState(102);
-            _errHandler->sync(this);
-            _la = _input->LA(1);
-          }
-        }
-        setState(105);
-        match(MattyParser::T__15);
+        setState(89);
+        booleano(0);
+        setState(90);
+        match(MattyParser::T__16);
+        setState(91);
+        match(MattyParser::T__20);
+        setState(92);
+        comando();
         break;
       }
 
       case MattyParser::T__21: {
+        _localctx = _tracker.createInstance<MattyParser::ExibaContext>(_localctx);
+        enterOuterAlt(_localctx, 8);
+        setState(94);
+        match(MattyParser::T__21);
+        setState(95);
+        match(MattyParser::T__9);
+        setState(104);
+        _errHandler->sync(this);
+
+        _la = _input->LA(1);
+        if ((((_la & ~ 0x3fULL) == 0) &&
+          ((1ULL << _la) & 8875261114188800) != 0)) {
+          setState(96);
+          valor();
+          setState(101);
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+          while (_la == MattyParser::T__1) {
+            setState(97);
+            match(MattyParser::T__1);
+            setState(98);
+            valor();
+            setState(103);
+            _errHandler->sync(this);
+            _la = _input->LA(1);
+          }
+        }
+        setState(106);
+        match(MattyParser::T__16);
+        break;
+      }
+
+      case MattyParser::T__22: {
         _localctx = _tracker.createInstance<MattyParser::BlocoContext>(_localctx);
         enterOuterAlt(_localctx, 9);
-        setState(106);
-        match(MattyParser::T__21);
         setState(107);
-        comando();
-        setState(108);
         match(MattyParser::T__22);
+        setState(111); 
+        _errHandler->sync(this);
+        _la = _input->LA(1);
+        do {
+          setState(108);
+          comando();
+          setState(109);
+          match(MattyParser::T__0);
+          setState(113); 
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+        } while ((((_la & ~ 0x3fULL) == 0) &&
+          ((1ULL << _la) & 1125899920573072) != 0));
+        setState(115);
+        match(MattyParser::T__23);
         break;
       }
 
@@ -848,26 +892,26 @@ MattyParser::ValorContext* MattyParser::valor() {
     exitRule();
   });
   try {
-    setState(115);
+    setState(122);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 8, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 9, _ctx)) {
     case 1: {
       enterOuterAlt(_localctx, 1);
-      setState(112);
+      setState(119);
       expressao(0);
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
-      setState(113);
+      setState(120);
       booleano(0);
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
-      setState(114);
+      setState(121);
       match(MattyParser::STRING);
       break;
     }
@@ -1247,15 +1291,15 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(160);
+    setState(167);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 15, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 16, _ctx)) {
     case 1: {
       _localctx = _tracker.createInstance<InteiroContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
 
-      setState(118);
+      setState(125);
       match(MattyParser::INT);
       break;
     }
@@ -1264,7 +1308,7 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<DecimalContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(119);
+      setState(126);
       match(MattyParser::DECIMAL);
       break;
     }
@@ -1273,7 +1317,7 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<FracaoContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(120);
+      setState(127);
       match(MattyParser::FRACTION);
       break;
     }
@@ -1282,8 +1326,8 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<LeiaContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(121);
-      match(MattyParser::T__23);
+      setState(128);
+      match(MattyParser::T__24);
       break;
     }
 
@@ -1291,7 +1335,7 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<IdContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(122);
+      setState(129);
       match(MattyParser::ID);
       break;
     }
@@ -1300,125 +1344,125 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<RegraDeTresContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(123);
+      setState(130);
       match(MattyParser::T__9);
-      setState(126);
-      _errHandler->sync(this);
-      switch (_input->LA(1)) {
-        case MattyParser::T__9:
-        case MattyParser::T__23:
-        case MattyParser::T__28:
-        case MattyParser::T__29:
-        case MattyParser::DECIMAL:
-        case MattyParser::FRACTION:
-        case MattyParser::ID:
-        case MattyParser::INT: {
-          setState(124);
-          expressao(0);
-          break;
-        }
-
-        case MattyParser::T__24: {
-          setState(125);
-          match(MattyParser::T__24);
-          break;
-        }
-
-      default:
-        throw NoViableAltException(this);
-      }
-      setState(128);
-      match(MattyParser::T__25);
-      setState(131);
-      _errHandler->sync(this);
-      switch (_input->LA(1)) {
-        case MattyParser::T__9:
-        case MattyParser::T__23:
-        case MattyParser::T__28:
-        case MattyParser::T__29:
-        case MattyParser::DECIMAL:
-        case MattyParser::FRACTION:
-        case MattyParser::ID:
-        case MattyParser::INT: {
-          setState(129);
-          expressao(0);
-          break;
-        }
-
-        case MattyParser::T__24: {
-          setState(130);
-          match(MattyParser::T__24);
-          break;
-        }
-
-      default:
-        throw NoViableAltException(this);
-      }
       setState(133);
-      _la = _input->LA(1);
-      if (!(_la == MattyParser::T__26
+      _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case MattyParser::T__9:
+        case MattyParser::T__24:
+        case MattyParser::T__29:
+        case MattyParser::T__30:
+        case MattyParser::DECIMAL:
+        case MattyParser::FRACTION:
+        case MattyParser::ID:
+        case MattyParser::INT: {
+          setState(131);
+          expressao(0);
+          break;
+        }
 
-      || _la == MattyParser::T__27)) {
+        case MattyParser::T__25: {
+          setState(132);
+          match(MattyParser::T__25);
+          break;
+        }
+
+      default:
+        throw NoViableAltException(this);
+      }
+      setState(135);
+      match(MattyParser::T__26);
+      setState(138);
+      _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case MattyParser::T__9:
+        case MattyParser::T__24:
+        case MattyParser::T__29:
+        case MattyParser::T__30:
+        case MattyParser::DECIMAL:
+        case MattyParser::FRACTION:
+        case MattyParser::ID:
+        case MattyParser::INT: {
+          setState(136);
+          expressao(0);
+          break;
+        }
+
+        case MattyParser::T__25: {
+          setState(137);
+          match(MattyParser::T__25);
+          break;
+        }
+
+      default:
+        throw NoViableAltException(this);
+      }
+      setState(140);
+      _la = _input->LA(1);
+      if (!(_la == MattyParser::T__27
+
+      || _la == MattyParser::T__28)) {
       _errHandler->recoverInline(this);
       }
       else {
         _errHandler->reportMatch(this);
         consume();
       }
-      setState(136);
-      _errHandler->sync(this);
-      switch (_input->LA(1)) {
-        case MattyParser::T__9:
-        case MattyParser::T__23:
-        case MattyParser::T__28:
-        case MattyParser::T__29:
-        case MattyParser::DECIMAL:
-        case MattyParser::FRACTION:
-        case MattyParser::ID:
-        case MattyParser::INT: {
-          setState(134);
-          expressao(0);
-          break;
-        }
-
-        case MattyParser::T__24: {
-          setState(135);
-          match(MattyParser::T__24);
-          break;
-        }
-
-      default:
-        throw NoViableAltException(this);
-      }
-      setState(138);
-      match(MattyParser::T__25);
-      setState(141);
-      _errHandler->sync(this);
-      switch (_input->LA(1)) {
-        case MattyParser::T__9:
-        case MattyParser::T__23:
-        case MattyParser::T__28:
-        case MattyParser::T__29:
-        case MattyParser::DECIMAL:
-        case MattyParser::FRACTION:
-        case MattyParser::ID:
-        case MattyParser::INT: {
-          setState(139);
-          expressao(0);
-          break;
-        }
-
-        case MattyParser::T__24: {
-          setState(140);
-          match(MattyParser::T__24);
-          break;
-        }
-
-      default:
-        throw NoViableAltException(this);
-      }
       setState(143);
-      match(MattyParser::T__15);
+      _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case MattyParser::T__9:
+        case MattyParser::T__24:
+        case MattyParser::T__29:
+        case MattyParser::T__30:
+        case MattyParser::DECIMAL:
+        case MattyParser::FRACTION:
+        case MattyParser::ID:
+        case MattyParser::INT: {
+          setState(141);
+          expressao(0);
+          break;
+        }
+
+        case MattyParser::T__25: {
+          setState(142);
+          match(MattyParser::T__25);
+          break;
+        }
+
+      default:
+        throw NoViableAltException(this);
+      }
+      setState(145);
+      match(MattyParser::T__26);
+      setState(148);
+      _errHandler->sync(this);
+      switch (_input->LA(1)) {
+        case MattyParser::T__9:
+        case MattyParser::T__24:
+        case MattyParser::T__29:
+        case MattyParser::T__30:
+        case MattyParser::DECIMAL:
+        case MattyParser::FRACTION:
+        case MattyParser::ID:
+        case MattyParser::INT: {
+          setState(146);
+          expressao(0);
+          break;
+        }
+
+        case MattyParser::T__25: {
+          setState(147);
+          match(MattyParser::T__25);
+          break;
+        }
+
+      default:
+        throw NoViableAltException(this);
+      }
+      setState(150);
+      match(MattyParser::T__16);
       break;
     }
 
@@ -1426,18 +1470,18 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<LogaritmoContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(144);
-      match(MattyParser::T__28);
-      setState(145);
+      setState(151);
+      match(MattyParser::T__29);
+      setState(152);
       expressao(0);
-      setState(148);
+      setState(155);
       _errHandler->sync(this);
 
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 13, _ctx)) {
+      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 14, _ctx)) {
       case 1: {
-        setState(146);
-        match(MattyParser::T__12);
-        setState(147);
+        setState(153);
+        match(MattyParser::T__13);
+        setState(154);
         expressao(0);
         break;
       }
@@ -1452,20 +1496,20 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<RaizContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(150);
-      match(MattyParser::T__29);
-      setState(152);
+      setState(157);
+      match(MattyParser::T__30);
+      setState(159);
       _errHandler->sync(this);
 
       _la = _input->LA(1);
       if ((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & 2111063952720896) != 0)) {
-        setState(151);
+        ((1ULL << _la) & 4222127905440768) != 0)) {
+        setState(158);
         expressao(0);
       }
-      setState(154);
-      match(MattyParser::T__30);
-      setState(155);
+      setState(161);
+      match(MattyParser::T__31);
+      setState(162);
       expressao(5);
       break;
     }
@@ -1474,12 +1518,12 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       _localctx = _tracker.createInstance<PrioridadeDeOperacoesContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(156);
+      setState(163);
       match(MattyParser::T__9);
-      setState(157);
+      setState(164);
       expressao(0);
-      setState(158);
-      match(MattyParser::T__15);
+      setState(165);
+      match(MattyParser::T__16);
       break;
     }
 
@@ -1487,27 +1531,27 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
       break;
     }
     _ctx->stop = _input->LT(-1);
-    setState(173);
+    setState(180);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 17, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 18, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
         if (!_parseListeners.empty())
           triggerExitRuleEvent();
         previousContext = _localctx;
-        setState(171);
+        setState(178);
         _errHandler->sync(this);
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 16, _ctx)) {
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 17, _ctx)) {
         case 1: {
           auto newContext = _tracker.createInstance<PotenciacaoContext>(_tracker.createInstance<ExpressaoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleExpressao);
-          setState(162);
+          setState(169);
 
           if (!(precpred(_ctx, 4))) throw FailedPredicateException(this, "precpred(_ctx, 4)");
-          setState(163);
-          match(MattyParser::T__31);
-          setState(164);
+          setState(170);
+          match(MattyParser::T__32);
+          setState(171);
           expressao(5);
           break;
         }
@@ -1516,20 +1560,20 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
           auto newContext = _tracker.createInstance<MultiplicacaoOuDivisaoContext>(_tracker.createInstance<ExpressaoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleExpressao);
-          setState(165);
+          setState(172);
 
           if (!(precpred(_ctx, 3))) throw FailedPredicateException(this, "precpred(_ctx, 3)");
-          setState(166);
+          setState(173);
           _la = _input->LA(1);
           if (!((((_la & ~ 0x3fULL) == 0) &&
-            ((1ULL << _la) & 27917287424) != 0))) {
+            ((1ULL << _la) & 55834574848) != 0))) {
           _errHandler->recoverInline(this);
           }
           else {
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(167);
+          setState(174);
           expressao(4);
           break;
         }
@@ -1538,21 +1582,21 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
           auto newContext = _tracker.createInstance<SomaOuSubtracaoContext>(_tracker.createInstance<ExpressaoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleExpressao);
-          setState(168);
+          setState(175);
 
           if (!(precpred(_ctx, 2))) throw FailedPredicateException(this, "precpred(_ctx, 2)");
-          setState(169);
+          setState(176);
           _la = _input->LA(1);
-          if (!(_la == MattyParser::T__26
+          if (!(_la == MattyParser::T__27
 
-          || _la == MattyParser::T__34)) {
+          || _la == MattyParser::T__35)) {
           _errHandler->recoverInline(this);
           }
           else {
             _errHandler->reportMatch(this);
             consume();
           }
-          setState(170);
+          setState(177);
           expressao(3);
           break;
         }
@@ -1561,9 +1605,9 @@ MattyParser::ExpressaoContext* MattyParser::expressao(int precedence) {
           break;
         } 
       }
-      setState(175);
+      setState(182);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 17, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 18, _ctx);
     }
   }
   catch (RecognitionException &e) {
@@ -1951,15 +1995,15 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
   try {
     size_t alt;
     enterOuterAlt(_localctx, 1);
-    setState(208);
+    setState(215);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 18, _ctx)) {
+    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 19, _ctx)) {
     case 1: {
       _localctx = _tracker.createInstance<BoolContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
 
-      setState(177);
+      setState(184);
       match(MattyParser::BOOLEANO);
       break;
     }
@@ -1968,11 +2012,11 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<IgualContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(178);
+      setState(185);
       expressao(0);
-      setState(179);
-      match(MattyParser::T__35);
-      setState(180);
+      setState(186);
+      match(MattyParser::T__36);
+      setState(187);
       expressao(0);
       break;
     }
@@ -1981,11 +2025,11 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<MenorOuIgualContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(182);
+      setState(189);
       expressao(0);
-      setState(183);
-      match(MattyParser::T__36);
-      setState(184);
+      setState(190);
+      match(MattyParser::T__37);
+      setState(191);
       expressao(0);
       break;
     }
@@ -1994,11 +2038,11 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<MenorContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(186);
+      setState(193);
       expressao(0);
-      setState(187);
-      match(MattyParser::T__37);
-      setState(188);
+      setState(194);
+      match(MattyParser::T__38);
+      setState(195);
       expressao(0);
       break;
     }
@@ -2007,11 +2051,11 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<MaiorContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(190);
+      setState(197);
       expressao(0);
-      setState(191);
-      match(MattyParser::T__38);
-      setState(192);
+      setState(198);
+      match(MattyParser::T__39);
+      setState(199);
       expressao(0);
       break;
     }
@@ -2020,11 +2064,11 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<MaiorOuIgualContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(194);
+      setState(201);
       expressao(0);
-      setState(195);
-      match(MattyParser::T__39);
-      setState(196);
+      setState(202);
+      match(MattyParser::T__40);
+      setState(203);
       expressao(0);
       break;
     }
@@ -2033,11 +2077,11 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<DiferenteContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(198);
+      setState(205);
       expressao(0);
-      setState(199);
-      match(MattyParser::T__40);
-      setState(200);
+      setState(206);
+      match(MattyParser::T__41);
+      setState(207);
       expressao(0);
       break;
     }
@@ -2046,9 +2090,9 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<NaoLogicoContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(202);
-      match(MattyParser::T__41);
-      setState(203);
+      setState(209);
+      match(MattyParser::T__42);
+      setState(210);
       booleano(5);
       break;
     }
@@ -2057,12 +2101,12 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       _localctx = _tracker.createInstance<PrioridadeDeOperacoesLogicasContext>(_localctx);
       _ctx = _localctx;
       previousContext = _localctx;
-      setState(204);
+      setState(211);
       match(MattyParser::T__9);
-      setState(205);
+      setState(212);
       booleano(0);
-      setState(206);
-      match(MattyParser::T__15);
+      setState(213);
+      match(MattyParser::T__16);
       break;
     }
 
@@ -2070,27 +2114,27 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
       break;
     }
     _ctx->stop = _input->LT(-1);
-    setState(221);
+    setState(228);
     _errHandler->sync(this);
-    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx);
+    alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx);
     while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
       if (alt == 1) {
         if (!_parseListeners.empty())
           triggerExitRuleEvent();
         previousContext = _localctx;
-        setState(219);
+        setState(226);
         _errHandler->sync(this);
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 19, _ctx)) {
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx)) {
         case 1: {
           auto newContext = _tracker.createInstance<ELogicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleBooleano);
-          setState(210);
+          setState(217);
 
           if (!(precpred(_ctx, 4))) throw FailedPredicateException(this, "precpred(_ctx, 4)");
-          setState(211);
-          match(MattyParser::T__42);
-          setState(212);
+          setState(218);
+          match(MattyParser::T__43);
+          setState(219);
           booleano(5);
           break;
         }
@@ -2099,12 +2143,12 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
           auto newContext = _tracker.createInstance<OuLogicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleBooleano);
-          setState(213);
+          setState(220);
 
           if (!(precpred(_ctx, 3))) throw FailedPredicateException(this, "precpred(_ctx, 3)");
-          setState(214);
-          match(MattyParser::T__43);
-          setState(215);
+          setState(221);
+          match(MattyParser::T__44);
+          setState(222);
           booleano(4);
           break;
         }
@@ -2113,12 +2157,12 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
           auto newContext = _tracker.createInstance<OuExclusivoLogicoContext>(_tracker.createInstance<BooleanoContext>(parentContext, parentState));
           _localctx = newContext;
           pushNewRecursionContext(newContext, startState, RuleBooleano);
-          setState(216);
+          setState(223);
 
           if (!(precpred(_ctx, 2))) throw FailedPredicateException(this, "precpred(_ctx, 2)");
-          setState(217);
-          match(MattyParser::T__44);
-          setState(218);
+          setState(224);
+          match(MattyParser::T__45);
+          setState(225);
           booleano(3);
           break;
         }
@@ -2127,9 +2171,9 @@ MattyParser::BooleanoContext* MattyParser::booleano(int precedence) {
           break;
         } 
       }
-      setState(223);
+      setState(230);
       _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 20, _ctx);
+      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 21, _ctx);
     }
   }
   catch (RecognitionException &e) {

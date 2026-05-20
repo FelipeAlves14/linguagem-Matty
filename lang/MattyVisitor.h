@@ -23,7 +23,7 @@ public:
 
     virtual std::any visitAtribuicao(MattyParser::AtribuicaoContext *context) = 0;
 
-    virtual std::any visitLoop(MattyParser::LoopContext *context) = 0;
+    virtual std::any visitLoopFor(MattyParser::LoopForContext *context) = 0;
 
     virtual std::any visitRepita(MattyParser::RepitaContext *context) = 0;
 
@@ -32,6 +32,8 @@ public:
     virtual std::any visitSkip(MattyParser::SkipContext *context) = 0;
 
     virtual std::any visitSe(MattyParser::SeContext *context) = 0;
+
+    virtual std::any visitLoopWhile(MattyParser::LoopWhileContext *context) = 0;
 
     virtual std::any visitExiba(MattyParser::ExibaContext *context) = 0;
 

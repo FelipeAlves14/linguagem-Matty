@@ -1,19 +1,19 @@
 grammar Matty;
 
-programa: (comando ';')+ EOF; // sequência de comandos
+programa: (comando ';')+ EOF;
 
 comando:
 	ID (',' ID)* '=' valor (',' valor)*										# atribuicao
-	| 'for' ID 'to' expressao 'at' expressao comando						# loop
+	| 'for' ID 'to' expressao 'at' expressao comando						# loopFor
 	| 'make' expressao 'times' comando										# repita
-	| 'choose' '(' expressao '):' (expressao ':' comando)* '_' ':' comando	# escolha
+	| 'choose' '(' expressao '):' (expressao ':' comando 'break')* '_' ':' comando	# escolha
 	| 'skip'																# skip
 	| 'if' '(' booleano ')' comando (
 		'elif' '(' booleano ')' comando
 	)* 'else' comando						# se
-	| 'while' '(' booleano ')' 'do' comando	# loop
+	| 'while' '(' booleano ')' 'do' comando	# loopWhile
 	| 'print' '(' (valor (',' valor)*)? ')'	# exiba
-	| '{' comando '}'						# bloco;
+	| '{' (comando ';')+ '}'						# bloco;
 
 valor: expressao | booleano | STRING;
 

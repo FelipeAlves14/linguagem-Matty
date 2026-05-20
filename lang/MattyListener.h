@@ -20,8 +20,8 @@ public:
   virtual void enterAtribuicao(MattyParser::AtribuicaoContext *ctx) = 0;
   virtual void exitAtribuicao(MattyParser::AtribuicaoContext *ctx) = 0;
 
-  virtual void enterLoop(MattyParser::LoopContext *ctx) = 0;
-  virtual void exitLoop(MattyParser::LoopContext *ctx) = 0;
+  virtual void enterLoopFor(MattyParser::LoopForContext *ctx) = 0;
+  virtual void exitLoopFor(MattyParser::LoopForContext *ctx) = 0;
 
   virtual void enterRepita(MattyParser::RepitaContext *ctx) = 0;
   virtual void exitRepita(MattyParser::RepitaContext *ctx) = 0;
@@ -34,6 +34,9 @@ public:
 
   virtual void enterSe(MattyParser::SeContext *ctx) = 0;
   virtual void exitSe(MattyParser::SeContext *ctx) = 0;
+
+  virtual void enterLoopWhile(MattyParser::LoopWhileContext *ctx) = 0;
+  virtual void exitLoopWhile(MattyParser::LoopWhileContext *ctx) = 0;
 
   virtual void enterExiba(MattyParser::ExibaContext *ctx) = 0;
   virtual void exitExiba(MattyParser::ExibaContext *ctx) = 0;
