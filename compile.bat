@@ -57,4 +57,6 @@ if exist "%VCPKG_ROOT%\installed\x64-windows\bin\antlr4-runtime.dll" (
 call lang\AST\makeAST.cpp main.my
 call build\bin\makeAST.exe main.my
 
+call clang .\executavel.ll .\runtime.cpp -o out.exe
+
 exit /b 0
